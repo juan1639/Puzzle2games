@@ -1,6 +1,6 @@
 import { Boot } from './scenes/Boot';
 import { Game } from './scenes/Game';
-import { GameOver } from './scenes/GameOver';
+import { PreGame } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 
@@ -11,7 +11,13 @@ const config = {
     width: 1024,
     height: 768,
     parent: 'game-container',
-    backgroundColor: '#028af8',
+    backgroundColor: '#857511',
+    physics: {
+        default: 'arcade',
+        arcade: {
+          debug: false
+        }
+    },
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -21,7 +27,7 @@ const config = {
         Preloader,
         MainMenu,
         Game,
-        GameOver
+        PreGame
     ]
 };
 

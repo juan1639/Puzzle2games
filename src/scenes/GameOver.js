@@ -1,28 +1,43 @@
 import { Scene } from 'phaser';
+import { Settings } from './settings.js';
+import { ElegirJuego, BotonNuevaPartida } from '../components/boton-nuevapartida';
 
-export class GameOver extends Scene
+export class PreGame extends Scene
 {
     constructor ()
     {
-        super('GameOver');
+        super('PreGame');
+    }
+
+    init()
+    {
+        Settings.setPuntos(0);
+        Settings.setNivel(1);
+        Settings.setGameOver(false);
+        Settings.setNivelSuperado(false);
+
+        const ancho = this.sys.game.config.width;
+        const alto = this.sys.game.config.height;
+        
+        this.choosegame = [];
+
+        this.choosegame.push(new ElegirJuego(this, {
+            left: Math.floor(ancho / 2 - ancho / 4),
+            top: Math.floor(alto / 2),
+            scale: 1, texto: ' Puzzle Numbers ', id: 'teclado'
+        }));
+
+        this.choosegame.push(new ElegirJuego(this, {
+            left: Math.floor(ancho / 2 + ancho / 4),
+            top: Math.floor(alto / 2),
+            scale: 1, texto: ' Puzzle Jewels ', id: 'mobile'
+        }));
     }
 
     create ()
     {
-        this.cameras.main.setBackgroundColor(0xff0000);
-
-        this.add.image(512, 384, 'background').setAlpha(0.5);
-
-        this.add.text(512, 384, 'Game Over', {
-            fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5);
-
-        this.input.once('pointerdown', () => {
-
-            this.scene.start('MainMenu');
-
-        });
+        this.add.image(0, 0, 'fondo').setDepth(Settings.depth.fondo).setOrigin(0, 0);
+        
+        this.choosegame.forEach(radiobutton => radiobutton.create());
     }
 }

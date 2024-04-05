@@ -38,6 +38,6 @@ export class PreGame extends Scene
     {
         this.add.image(0, 0, 'fondo').setDepth(Settings.depth.fondo).setOrigin(0, 0);
         
-        this.choosegame.forEach(radiobutton => radiobutton.create());
+        this.choosegame.forEach(chooseg => chooseg.create());
     }
 }

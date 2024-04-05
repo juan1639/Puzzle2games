@@ -61,6 +61,8 @@ export class Preloader extends Scene
         this.load.image('boton-nueva-partida', './img/boton-start.png');
 
         this.load.image('tile-blue', './img/tile-blue.png');
+        this.load.image('board', './img/board-puzzle.png');
+        this.load.spritesheet('tiles-numbers', './img/ssheet-puzzle-numbers.png', {frameWidth: 150, frameHeight: 150});
         
         //  Archivos de audio
         // this.load.audio('gameover-retro', './game-over-arcade-retro.mp3');

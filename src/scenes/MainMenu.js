@@ -22,7 +22,7 @@ export class MainMenu extends Scene
             stroke: '#fa1', sizeStroke: 16,
             shadowOsx: 2, shadowOsy: 2, shadowColor: '#111',
             bool1: false, bool2: true, origin: [0.5, 0.5],
-            elastic: Math.floor(this.sys.game.config.height / 3.4), dura: 3000
+            elastic: Math.floor(this.sys.game.config.height / 3), dura: 3000
         });
     }
 
@@ -46,7 +46,8 @@ export class MainMenu extends Scene
         this.add.timeline([
             {
                 at: aparecerBoton,
-                run: () => {
+                run: () =>
+                {
                     this.botoninicio.create('PreGame', false);
                 }
             }

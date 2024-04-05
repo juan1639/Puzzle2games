@@ -49,6 +49,8 @@ export class Game extends Scene
 
     // console.log(this.imgFondo.width, this.imgFondo.height);
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
+
+    this.imgBoard = this.add.image(0, 0, 'board').setDepth(Settings.depth.fondo).setOrigin(0, 0);
     
     // this.set_sonidos();
 

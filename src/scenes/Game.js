@@ -6,6 +6,7 @@
 // ------------------------------------------------------------
 import { Scene } from 'phaser';
 import { Board } from '../components/board.js';
+import { BoardImg } from '../components/boardImg.js';
 import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
 import { Settings } from './settings.js';
@@ -30,6 +31,7 @@ export class Game extends Scene
 
     this.set_pausaInicial(4300);
 
+    this.boardimg = new BoardImg(this);
     this.board = new Board(this);
 
     this.instanciar_marcadores();
@@ -49,11 +51,10 @@ export class Game extends Scene
 
     // console.log(this.imgFondo.width, this.imgFondo.height);
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
-
-    this.imgBoard = this.add.image(0, 0, 'board').setDepth(Settings.depth.fondo).setOrigin(0, 0);
     
     // this.set_sonidos();
 
+    this.boardimg.create();
     this.board.create();
     
     this.marcadorPtos.create();

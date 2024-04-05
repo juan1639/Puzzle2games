@@ -40,6 +40,16 @@ export class Board
             y: paddingY
         });
 
+        this.board.children.iterate(numero =>
+        {
+            numero.setInteractive();
+
+            numero.on('pointerdown', () =>
+            {
+                console.log('click');
+            });
+        });
+
         console.log(this.board);
     }
 

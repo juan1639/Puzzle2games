@@ -24,7 +24,6 @@ export class Board
         this.board = this.relatedScene.physics.add.group(
         {
             key: 'tiles-numbers',
-            // frame: [0, 7, 2, 3, 4, 5, 6, 1],
             frame: this.drawNumbers,
             // repeat: this.lenArrayNumbers - 1
         });
@@ -65,7 +64,19 @@ export class Board
 
     clickHandler(numero, index)
     {
-        
+        console.log(numero.x, numero.y);
+        console.log(index);
+        this.get_matrixIndex(index);
+
+    }
+
+    get_matrixIndex(index)
+    {
+        let y = Math.floor(index / Settings.array_numbers[0].length);
+        let x = index - y * Settings.array_numbers[0].length;
+
+        console.log(y, x);
+        console.log(Settings.array_numbers[y][x]);
     }
 
     set_draw()

@@ -51,7 +51,7 @@ export class Game extends Scene
 
     // console.log(this.imgFondo.width, this.imgFondo.height);
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
-    
+
     // this.set_sonidos();
 
     this.boardimg.create();
@@ -129,7 +129,7 @@ export class Game extends Scene
     // this.physics.add.overlap(this.jugador.get(), this.fantasmas.get(), overlapJugadorFantasmas, exceptoNotVisible, this);
     
     // Collide Jugador-Bloques
-    // this.physics.add.collider(this.jugador.get(), this.bloques.get(), colliderJugadorBloques, null, this);
+    // this.physics.add.collider(this.board.get(), this.board.get());
   }
 
   instanciar_marcadores()

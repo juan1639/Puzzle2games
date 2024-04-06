@@ -1,7 +1,7 @@
 import { Settings } from './settings.js';
-import { Textos } from '../components/Textos.js';
+import { Textos } from '../components/textos.js';
 import { BotonNuevaPartida } from "../components/boton-nuevapartida.js";
-import { particulas, play_sonidos } from '../utils/functions.js';
+// import { particulas, play_sonidos } from '../utils/functions.js';
 
 export class Congratulations extends Phaser.Scene
 {
@@ -18,6 +18,7 @@ export class Congratulations extends Phaser.Scene
   create()
   {
     this.add.image(0, 0, 'fondo').setOrigin(0, 0);
+    return;
 
     const aparecerBoton = 3200;
     this.incremento_nivel = Settings.getNivel() + 1;

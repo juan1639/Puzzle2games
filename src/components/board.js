@@ -63,7 +63,7 @@ export class Board
     update()
     {
         this.puzzle_done = this.check_puzzleDone();
-        console.log(this.puzzle_done);
+        // console.log(this.puzzle_done);
     }
 
     clickHandler(numero)

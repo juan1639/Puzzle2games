@@ -57,7 +57,7 @@ export class PreGame extends Scene
         this.tweens.add({
             targets: this.txt.get(),
             y: Math.floor(this.sys.game.config.height / 8),
-            duration: 2000
+            duration: 1200
         });
     }
 

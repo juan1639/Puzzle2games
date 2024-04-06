@@ -19,7 +19,7 @@ export class MainMenu extends Scene
             y: 0,
             txt: ' Puzzle \n     2 \n games ',
             size: 100, color: '#ffa', style: 'bold',
-            stroke: '#fa1', sizeStroke: 16,
+            stroke: '#f51', sizeStroke: 16,
             shadowOsx: 2, shadowOsy: 2, shadowColor: '#111',
             bool1: false, bool2: true, origin: [0.5, 0.5],
             elastic: Math.floor(this.sys.game.config.height / 3), dura: 3000

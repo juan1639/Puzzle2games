@@ -58,6 +58,9 @@ export class Preloader extends Scene
             this.load.image(`fondo${i}`, `./img/fondo-mosaico${i}.jpg`);
         }
 
+        this.load.image('img-menu-numbers', './img/img-puzzle-numbers.png');
+        this.load.image('img-menu-jewels', './img/img-puzzle-numbers.png');
+
         this.load.image('boton-nueva-partida', './img/boton-start.png');
 
         this.load.image('tile-blue', './img/tile-blue.png');

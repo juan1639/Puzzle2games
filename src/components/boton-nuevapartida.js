@@ -109,15 +109,15 @@ export class ElegirJuego
 
   create()
   {
-    const {left, top, scale, texto, id} = this.args;
+    const {left, top, img, scale, texto, id} = this.args;
 
-    this.chooseGame = this.relatedScene.add.sprite(left, top, 'boton-nueva-partida').setInteractive();
+    this.chooseGame = this.relatedScene.add.sprite(left, top, img).setInteractive();
     this.chooseGame.setOrigin(0.5, 0.5).setScale(scale).setDepth(Settings.depth.textos);
     this.chooseGame.setData('id', id);
 
     this.txt = new Textos(this.relatedScene, {
       x: left,
-      y: top,
+      y: Math.floor(top * 1.7),
       txt: texto,
       size: 45, color: '#ffa', style: 'bold',
       stroke: '#f71', sizeStroke: 16,
@@ -127,16 +127,18 @@ export class ElegirJuego
     });
 
     this.txt.create();
+    this.escalaTxt = scale * 3;
+    this.txt.get().setScale(this.escalaTxt);
 
     this.chooseGame.on('pointerover', () =>
     {
-      this.txt.get().setScale(scale + 0.1);
+      this.txt.get().setScale(this.escalaTxt + 0.1);
       this.chooseGame.setScale(scale + 0.1);
     });
     
     this.chooseGame.on('pointerout', () =>
     {
-      this.txt.get().setScale(scale);
+      this.txt.get().setScale(this.escalaTxt);
       this.chooseGame.setScale(scale);
     });
 

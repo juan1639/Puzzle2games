@@ -56,7 +56,7 @@ export class Board
                 this.clickHandler(numero);
             });
         });
-
+        
         console.log(this.board);
     }
 
@@ -69,10 +69,10 @@ export class Board
     clickHandler(numero)
     {
         const [y, x] = this.get_matrixIndex(numero.y, numero.x);
-        this.check_neighbours(y, x, numero);
+        this.check_neighbours(y, x, numero, true);
     }
 
-    check_neighbours(y, x, numero)
+    check_neighbours(y, x, numero, swapBool)
     {
         // console.log(Settings.empty);
 

@@ -16,9 +16,9 @@ export class Settings
 
     static puntos = 0;
     static nivel = 1;
-    static hi = 7000;
+    static hi = 59;
     static txtScore = ' Score: ';
-    static txtAttempts = ' Attemps counter: ';
+    static txtTime = ' Time: ';
 
     static pausas =
     {
@@ -31,6 +31,7 @@ export class Settings
         fondo: 0,
         bloques: 100,
         efectos: 200,
+        ui: 250,
         marcadores: 300,
         textos: 400,
     };
@@ -53,6 +54,11 @@ export class Settings
     static getTxtScore()
     {
         return Settings.txtScore;
+    }
+
+    static getTxtTime()
+    {
+        return Settings.txtTime;
     }
     
     static isGameOver()

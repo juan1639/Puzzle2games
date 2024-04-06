@@ -70,7 +70,7 @@ export class BotonFullScreen
     this.boton = this.relatedScene.add.image(x, y, id).setInteractive();
     this.boton.setScale(scX, scY);
     this.boton.setAngle(ang).setFrame(0).setDepth(50);
-    this.boton.setX(x).setY(y + Math.floor(this.boton.height / 2));
+    this.boton.setX(x).setY(y);
 
     this.boton.on('pointerover', () =>
     {

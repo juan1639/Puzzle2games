@@ -15,7 +15,6 @@ export class Marcador
         let texto = '';
 
         if (id === 0) texto = `${txt}${Settings.getPuntos()}`;
-        if (id === 1) texto = `${txt}${Settings.getNivel()}`;
         if (id === 2) texto = `${txt}${Settings.getRecord()}`;
 
         this.marcador = this.relatedScene.add.text(x, y, texto, {
@@ -25,6 +24,7 @@ export class Marcador
             fontStyle: 'bold'
         });
 
+        this.marcador.setOrigin(0, 0.5).setDepth(Settings.depth.marcadores);
         this.marcador.setStroke(strokeColor, 16).setShadow(2, 2, '#111111', 2, false, true);
         //#de77ae #ee9011 #af1
 

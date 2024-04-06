@@ -58,10 +58,13 @@ export class Preloader extends Scene
             this.load.image(`fondo${i}`, `./img/fondo-mosaico${i}.jpg`);
         }
 
+        this.load.image('ui-1', './img/ui-1.png');
+
         this.load.image('img-menu-numbers', './img/img-puzzle-numbers.png');
         this.load.image('img-menu-jewels', './img/img-puzzle-numbers.png');
 
         this.load.image('boton-nueva-partida', './img/boton-start.png');
+        this.load.spritesheet('boton-fullscreen', './img/boton-fullscreen.png', {frameWidth: 64, frameHeight: 64});
 
         this.load.image('particula-tint', './img/particula-tint.png');
 

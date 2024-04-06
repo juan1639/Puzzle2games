@@ -57,13 +57,14 @@ export class Game extends Scene
     // console.log(this.imgFondo.width, this.imgFondo.height);
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
 
+    this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
+
     // this.set_sonidos();
 
     this.boardimg.create();
     this.board.create();
     
     this.marcadorPtos.create();
-    this.marcadorNivel.create();
     this.marcadorHi.create();
     this.botonfullscreen.create();
   }
@@ -146,22 +147,25 @@ export class Game extends Scene
     const ancho = this.sys.game.config.width;
     const alto = this.sys.game.config.height;
 
-    const marcadoresPosY = -99;
+    this.ui = [null, null];
+
+    this.ui[0] = this.add.image(0, 0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+
+    this.ui[1] = this.add.image(Math.floor(this.sys.game.config.width / 2.4),
+      0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+
+    const marcadoresPosY = Math.floor(this.ui[0].height / 2);
 
     this.marcadorPtos = new Marcador(this, {
-      x: 10, y: marcadoresPosY, size: 40, txt: Settings.getTxtScore(), color: '#fff', strokeColor: '#af1', id: 0
-    });
-
-    this.marcadorNivel = new Marcador(this, {
-      x: Math.floor(ancho / 2), y: marcadoresPosY, size: 40, txt: ' Level: ', color: '#ff5', strokeColor: '#16d', id: 1
+      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(), color: '#eee', strokeColor: '#f0bb10', id: 0
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 1.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#fff', strokeColor: '#af1',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#eee', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {
-      x: Math.floor(ancho * 1.5), y: marcadoresPosY + 7, id: 'boton-fullscreen', scX: 1.2, scY: 0.8, ang: 0
+      x: Math.floor(ancho / 1.1), y: marcadoresPosY, id: 'boton-fullscreen', scX: 1.2, scY: 0.8, ang: 0
     });
   }
 

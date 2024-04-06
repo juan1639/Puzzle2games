@@ -14,7 +14,6 @@ export class PreGame extends Scene
         Settings.setPuntos(0);
         Settings.setNivel(1);
         Settings.setGameOver(false);
-        Settings.setNivelSuperado(false);
 
         const ancho = this.sys.game.config.width;
         const alto = this.sys.game.config.height;

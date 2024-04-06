@@ -29,6 +29,13 @@ export class Game extends Scene
   {
     Settings.setGameOver(false);
 
+    Settings.array_numbers =
+    [
+      [Settings.empty, Settings.empty, Settings.empty],
+      [Settings.empty, Settings.empty, Settings.empty],
+      [Settings.empty, Settings.empty, Settings.empty]
+    ];
+
     this.set_pausaInicial(4300);
 
     this.boardimg = new BoardImg(this);
@@ -61,13 +68,26 @@ export class Game extends Scene
     this.marcadorNivel.create();
     this.marcadorHi.create();
     this.botonfullscreen.create();
-
-    this.set_colliders();
   }
 
   update()
   {
+    if (!this.check_puzzleDone())
+    {
+      this.board.update();
+    }
+    else
+    {
+      console.log('hecho');
+      this.scene.start('Congratulations');
+    }
 
+    // console.log(this.check_puzzleDone());
+  }
+
+  check_puzzleDone()
+  {
+    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
   }
 
   set_pausaInicial(tiempo)
@@ -121,14 +141,6 @@ export class Game extends Scene
     
     this.txtcongrats.create();
     this.txtcongrats.get().setDepth(Settings.getDepth().textos);
-  }
-
-  set_colliders()
-  {
-    // Overlap Jugador-Fantasmas
-    // this.physics.add.overlap(this.jugador.get(), this.fantasmas.get(), overlapJugadorFantasmas, exceptoNotVisible, this);
-    
-    // Collide Jugador-Bloques
   }
 
   instanciar_marcadores()

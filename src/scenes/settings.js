@@ -21,17 +21,9 @@ export class Settings
 
     static pausas =
     {
-        revivir: 4000,
-        invisible: 3000,
+        inicial: 4000,
         showBonus: 3500,
-        nivelSuperado: {
-            superado: false,
-            duracion: 3200
-        },
-        duracionExplosion: {
-            jugador: 1000,
-            enemigo: 400
-        }
+        nivelSuperado: 7000
     };
 
     static depth = {
@@ -48,7 +40,7 @@ export class Settings
     [
         [Settings.empty, Settings.empty, Settings.empty],
         [Settings.empty, Settings.empty, Settings.empty],
-        [Settings.empty, Settings.empty, Settings.empty],
+        [Settings.empty, Settings.empty, Settings.empty]
     ];
 
     static animations =
@@ -61,17 +53,7 @@ export class Settings
     {
         return Settings.txtScore;
     }
-
-    static isNivelSuperado()
-    {
-        return Settings.pausas.nivelSuperado.superado;
-    }
-
-    static getPausaNivelSuperado()
-    {
-        return Settings.pausas.nivelSuperado.duracion;
-    }
-
+    
     static isGameOver()
     {
         return Settings.gameOver;
@@ -98,11 +80,6 @@ export class Settings
     }
 
     // --- Setters ---
-    static setNivelSuperado(bool)
-    {
-        Settings.pausas.nivelSuperado.superado = bool;
-    }
-
     static setGameOver(bool)
     {
         Settings.gameOver = bool;

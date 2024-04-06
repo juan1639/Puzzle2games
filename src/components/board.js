@@ -21,6 +21,8 @@ export class Board
         this.drawNumbers = [];
         this.set_draw();
 
+        this.puzzle_done = [];
+
         this.board = this.relatedScene.physics.add.group(
         {
             key: 'tiles-numbers',
@@ -60,6 +62,8 @@ export class Board
 
     update()
     {
+        this.puzzle_done = this.check_puzzleDone();
+        console.log(this.puzzle_done);
     }
 
     clickHandler(numero)
@@ -146,6 +150,27 @@ export class Board
             }
         }
         console.log(Settings.array_numbers);
+    }
+
+    check_puzzleDone()
+    {
+        const check = [];
+        let count = -1;
+
+        for (let i = 0; i < Settings.array_numbers.length; i ++)
+        {
+            for (let ii = 0; ii < Settings.array_numbers[0].length; ii ++)
+            {
+                if (ii === Settings.array_numbers[0].length - 1 && i === Settings.array_numbers.length - 1) continue;
+
+                count ++;
+                const valor = Settings.array_numbers[i][ii];
+
+                if (valor === count) check.push(true);
+            }
+        }
+
+        return check;
     }
 
     get()

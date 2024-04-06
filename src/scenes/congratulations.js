@@ -7,7 +7,7 @@ export class Congratulations extends Phaser.Scene
 {
   constructor()
   {
-    super({ key: 'congratulations' });
+    super({ key: 'Congratulations' });
   }
 
   init()

@@ -73,7 +73,13 @@ export class Preloader extends Scene
         this.load.spritesheet('tiles-numbers', './img/ssheet-puzzle-numbers.png', {frameWidth: 150, frameHeight: 150});
         
         //  Archivos de audio
-        // this.load.audio('gameover-retro', './game-over-arcade-retro.mp3');
+        this.load.audio('aplausos', './audio/aplausoseagle.mp3');
+        this.load.audio('abucheos', './audio/boooh.mp3');
+        this.load.audio('fireworks', './audio/fireworks.mp3');
+        this.load.audio('jump', './audio/jumpbros.mp3');
+        this.load.audio('menu-switch', './audio/menu_switch.mp3');
+        this.load.audio('music-puzzle-game', './audio/music-puzzle-game1.mp3');
+        this.load.audio('moneda-mario', './audio/p-ping.mp3');
     }
 
     create()

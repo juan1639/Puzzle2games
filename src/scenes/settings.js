@@ -42,12 +42,19 @@ export class Settings
         textos: 400,
     };
 
+    static empty = 8;
+
     static array_numbers =
     [
-        [1, 2, 3],
-        [4, 5, 6],
-        [8, 7, 0],
+        [Settings.empty, Settings.empty, Settings.empty],
+        [Settings.empty, Settings.empty, Settings.empty],
+        [Settings.empty, Settings.empty, Settings.empty],
     ];
+
+    static animations =
+    {
+        vel: 100
+    };
 
     // --- Getters ---
     static getTxtScore()
@@ -85,6 +92,11 @@ export class Settings
         return Settings.hi;
     }
 
+    static getAnimations()
+    {
+        return Settings.animations;
+    }
+
     // --- Setters ---
     static setNivelSuperado(bool)
     {
@@ -109,5 +121,10 @@ export class Settings
     static setRecord(hiScore)
     {
         Settings.hi = hiScore;
+    }
+
+    static setAnimationsVel(vel)
+    {
+        Settings.animations.vel = vel;
     }
 }

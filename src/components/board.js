@@ -9,11 +9,11 @@ export class Board
 
     create()
     {
-        const paddingX = Math.floor(
+        this.paddingX = Math.floor(
             this.relatedScene.sys.game.config.width / 2 - (Settings.tileXY.x * Settings.array_numbers[0].length) / 2
         );
 
-        const paddingY = Math.floor(
+        this.paddingY = Math.floor(
             this.relatedScene.sys.game.config.height / 2 - (Settings.tileXY.y * Settings.array_numbers.length) / 2
         );
 
@@ -40,8 +40,8 @@ export class Board
             height: Settings.array_numbers.length,
             cellWidth: Settings.tileXY.x,
             cellHeight: Settings.tileXY.y,
-            x: paddingX,
-            y: paddingY
+            x: this.paddingX,
+            y: this.paddingY
         });
 
         this.board.children.iterate((numero, index) =>
@@ -50,8 +50,8 @@ export class Board
 
             numero.on('pointerdown', () =>
             {
-                console.log('click' + index);
-                this.clickHandler(numero, index);
+                console.log('click' + numero.x + numero.y);
+                this.clickHandler(numero);
             });
         });
 
@@ -62,22 +62,70 @@ export class Board
     {
     }
 
-    clickHandler(numero, index)
+    clickHandler(numero)
     {
-        console.log(numero.x, numero.y);
-        console.log(index);
-        this.get_matrixIndex(index);
-
+        const [y, x] = this.get_matrixIndex(numero.y, numero.x);
+        this.check_neighbours(y, x, numero);
     }
 
-    get_matrixIndex(index)
+    check_neighbours(y, x, numero)
     {
-        let y = Math.floor(index / Settings.array_numbers[0].length);
-        let x = index - y * Settings.array_numbers[0].length;
+        // console.log(Settings.empty);
 
-        console.log(y, x);
-        console.log(Settings.array_numbers[y][x]);
+        if (y < 2 && Settings.array_numbers[y + 1][x] === Settings.empty)
+        {
+            this.swapEmpty(y, x, 1, 0, numero);
+            return;
+        }
+        
+        if (y > 0 && Settings.array_numbers[y - 1][x] === Settings.empty)
+        {
+            this.swapEmpty(y, x, -1, 0, numero);
+            return;
+        }
+        
+        if (x < 2 && Settings.array_numbers[y][x + 1] === Settings.empty)
+        {
+            this.swapEmpty(y, x, 0, 1, numero);
+            return;
+        }
+        
+        if (x > 0 && Settings.array_numbers[y][x - 1] === Settings.empty)
+        {
+            this.swapEmpty(y, x, 0, -1, numero);
+            return;
+        }
     }
+
+    swapEmpty(y, x, offSetY, offSetX, numero)
+    {
+        Settings.array_numbers[y + offSetY][x + offSetX] = Settings.array_numbers[y][x];
+        Settings.array_numbers[y][x] = Settings.empty;
+        console.log(Settings.array_numbers);
+
+        this.relatedScene.tweens.add({
+            targets: numero,
+            x: numero.x + (offSetX * Settings.tileXY.x),
+            y: numero.y + (offSetY * Settings.tileXY.y),
+            duration: Settings.animations.vel
+        });
+    }
+
+    get_matrixIndex(coorY, coorX)
+    {
+        return [
+            (coorY - this.paddingY) / Settings.tileXY.y,
+            (coorX - this.paddingX) / Settings.tileXY.x
+        ];
+    }
+
+    /* get_matrixIndex(index)
+    {
+        const y = Math.floor(index / Settings.array_numbers[0].length);
+        const x = index - y * Settings.array_numbers[0].length;
+
+        return [y, x];
+    } */
 
     set_draw()
     {

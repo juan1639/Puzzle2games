@@ -129,7 +129,6 @@ export class Game extends Scene
     // this.physics.add.overlap(this.jugador.get(), this.fantasmas.get(), overlapJugadorFantasmas, exceptoNotVisible, this);
     
     // Collide Jugador-Bloques
-    // this.physics.add.collider(this.board.get(), this.board.get());
   }
 
   instanciar_marcadores()

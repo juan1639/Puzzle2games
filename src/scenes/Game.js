@@ -13,8 +13,6 @@ import { Settings } from './settings.js';
 import { BotonFullScreen, BotonNuevaPartida } from '../components/boton-nuevapartida.js';
 
 import {
-  // overlapJugadorFantasmas,
-  colliderJugadorBloques,
   play_sonidos
 } from '../functions/functions.js';
 

@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { Textos } from '../components/textos.js';
-import { play_sonidos } from '../functions/functions.js';
+import { play_sonidos, particulas } from '../functions/functions.js';
 import { BotonNuevaPartida } from '../components/boton-nuevapartida.js';
 
 export class MainMenu extends Scene
@@ -32,16 +32,29 @@ export class MainMenu extends Scene
     {
         const aparecerBoton = 1800; // 1800
 
+        const width = this.sys.game.config.width;
+        const height = this.sys.game.config.height;
+
         this.add.image(0, 0, 'fondo').setOrigin(0, 0);
+
+        particulas(
+            width / 2, height / 2, 'particula-tint',
+            {min: 120, max: 220},
+            {min: 2400, max: 2800},
+            {start: 1.5, end: 0},
+            0x11eeaa,
+            // new Phaser.Display.Color(Phaser.Math.Between(100, 150), Phaser.Math.Between(100, 255), 0).color,
+            true, null, false, this
+        );
 
         this.txt.create();
 
-        const basedOn = this.add.text(
+        /* const basedOn = this.add.text(
             Math.floor(this.sys.game.config.width / 4),
             Math.floor(this.sys.game.config.height / 1.04),
-            'Based on classic arcade game Pengo of Sega 1982',
+            'Based on ...',
             {fontSize: '16px', color: '#ff1', align: 'justify', fontFamily: 'Arial'}
-        );
+        ); */
 
         this.add.timeline([
             {

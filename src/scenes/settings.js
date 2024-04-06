@@ -18,6 +18,7 @@ export class Settings
     static nivel = 1;
     static hi = 7000;
     static txtScore = ' Score: ';
+    static txtAttempts = ' Attemps counter: ';
 
     static pausas =
     {

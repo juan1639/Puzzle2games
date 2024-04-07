@@ -30,6 +30,7 @@ export class MainMenu extends Scene
 
     create ()
     {
+        const music = this.sound.add('music-puzzle-game');
         const aparecerBoton = 1800; // 1800
 
         const width = this.sys.game.config.width;
@@ -38,7 +39,7 @@ export class MainMenu extends Scene
         this.add.image(0, 0, 'fondo').setOrigin(0, 0);
 
         particulas(
-            width / 2, height / 2, 'particula-tint',
+            width / 2, height / 2, 'particula1',
             {min: 120, max: 220},
             {min: 2400, max: 2800},
             {start: 1.5, end: 0},
@@ -56,7 +57,7 @@ export class MainMenu extends Scene
             {fontSize: '16px', color: '#ff1', align: 'justify', fontFamily: 'Arial'}
         ); */
 
-        this.add.timeline([
+        const timeline = this.add.timeline([
             {
                 at: aparecerBoton,
                 run: () =>
@@ -64,7 +65,11 @@ export class MainMenu extends Scene
                     this.botoninicio.create('PreGame', false);
                 }
             }
-        ]).play();
+        ]);
+
+        timeline.play();
+
+        play_sonidos(music, true, 0.6);
         
         console.log(this.txt);
     }  

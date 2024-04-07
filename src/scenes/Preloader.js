@@ -67,6 +67,7 @@ export class Preloader extends Scene
         this.load.spritesheet('boton-fullscreen', './img/boton-fullscreen.png', {frameWidth: 64, frameHeight: 64});
 
         this.load.image('particula-tint', './img/particula-tint.png');
+        this.load.image('particula1', './img/particula1.png');
 
         this.load.image('tile-blue', './img/tile-blue.png');
         this.load.image('board', './img/board-puzzle.png');
@@ -76,7 +77,7 @@ export class Preloader extends Scene
         this.load.audio('aplausos', './audio/aplausoseagle.mp3');
         this.load.audio('abucheos', './audio/boooh.mp3');
         this.load.audio('fireworks', './audio/fireworks.mp3');
-        this.load.audio('jump', './audio/jumpbros.mp3');
+        this.load.audio('jump', './audio/jumpbros.ogg');
         this.load.audio('menu-switch', './audio/menu_switch.mp3');
         this.load.audio('music-puzzle-game', './audio/music-puzzle-game1.mp3');
         this.load.audio('moneda-mario', './audio/p-ping.mp3');

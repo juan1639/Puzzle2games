@@ -34,7 +34,7 @@ function particulas(x, y, particula, vel, span, size, color, unlimited, sprite, 
       scale: size,
       tint: color,
       // gravityY: 200
-      blendMode: 'SATURATION'
+      blendMode: 'ADD'
     });
 
     if (!unlimited) scene.time.delayedCall(Settings.pausas.inicial, () => partis.stop());

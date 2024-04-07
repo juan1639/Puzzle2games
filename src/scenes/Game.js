@@ -37,7 +37,7 @@ export class Game extends Scene
     this.set_pausaInicial(4300);
 
     this.boardimg = new BoardImg(this);
-    this.board = new Board(this);
+    this.board = new Board(this, false);
 
     this.instanciar_marcadores();
     this.botonrejugar = new BotonNuevaPartida(this);
@@ -59,7 +59,7 @@ export class Game extends Scene
 
     this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
 
-    // this.set_sonidos();
+    this.set_sonidos();
 
     this.boardimg.create();
     this.board.create();
@@ -86,7 +86,7 @@ export class Game extends Scene
 
   check_puzzleDone()
   {
-    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
+    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 3;
   }
 
   set_pausaInicial(tiempo)
@@ -171,14 +171,7 @@ export class Game extends Scene
 
   set_sonidos()
   {
-    this.sonido_preparado = this.sound.add('sonidoPacmanInicioNivel');
-    play_sonidos(this.sonido_preparado, false, 0.8);
-
-    this.sonido_waka = this.sound.add('sonidoWakaWaka');
-    this.sonido_jugadorDies = this.sound.add('sonidoPacmanDies');
-    this.sonido_eatingGhost = this.sound.add('sonidoPacmanEatingGhost');
-    this.sonido_eatingCherry = this.sound.add('sonidoPacmanEatingCherry');
-    this.sonido_fantasmasScary = this.sound.add('sonidoPacmanAzules');
-    this.sonido_sirena = this.sound.add('sonidoPacmanSirena');
+    this.sonido_jump = this.sound.add('jump');
+    this.sonido_monedaMario = this.sound.add('moneda-mario');
   }
 }

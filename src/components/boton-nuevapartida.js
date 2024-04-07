@@ -1,5 +1,6 @@
 import { Settings } from "../scenes/settings";
 import { Textos } from "./textos";
+import { play_sonidos } from '../functions/functions.js';
 
 export class BotonNuevaPartida
 {
@@ -10,7 +11,7 @@ export class BotonNuevaPartida
 
   create(siguienteScene, gameover)
   {
-    // this.sonidoMenuSelect = this.relatedScene.sound.add('moneda-mario');
+    const sonido_switch = this.relatedScene.sound.add('moneda-mario');
 
     const ancho = this.relatedScene.sys.game.config.width;
     const alto = this.relatedScene.sys.game.config.height;
@@ -31,9 +32,9 @@ export class BotonNuevaPartida
 
     this.boton.on('pointerdown', (e) => {
 
-      // play_sonidos(this.sonidoMenuSelect, false, 0.9);
-      this.relatedScene.scene.start(siguienteScene);
       console.log(e);
+      play_sonidos(sonido_switch, false, 0.7);
+      this.relatedScene.scene.start(siguienteScene);
     });
 
     this.relatedScene.tweens.add(
@@ -109,6 +110,8 @@ export class ElegirJuego
 
   create()
   {
+    const sonido_switch = this.relatedScene.sound.add('moneda-mario');
+
     const {left, top, img, scale, texto, id} = this.args;
 
     this.chooseGame = this.relatedScene.add.sprite(left, top, img).setInteractive();
@@ -144,8 +147,8 @@ export class ElegirJuego
 
     this.chooseGame.on('pointerdown', (e) =>
     {
-      // play_sonidos(this.sonidoMenuSelect, false, 0.9);
       console.log('choose game');
+      play_sonidos(sonido_switch, false, 0.7);
       this.relatedScene.scene.start('Game');
     });
   }

@@ -1,4 +1,5 @@
 import { Settings } from "../scenes/settings.js";
+import { play_sonidos } from "../functions/functions.js";
 
 export class Board
 {
@@ -56,7 +57,9 @@ export class Board
                 this.clickHandler(numero);
             });
         });
-        
+
+        this.sound_jump = this.relatedScene.sonido_jump;
+
         console.log(this.board);
     }
 
@@ -113,6 +116,8 @@ export class Board
             y: numero.y + (offSetY * Settings.tileXY.y),
             duration: Settings.animations.vel
         });
+
+        play_sonidos(this.sound_jump, false, 0.7);
     }
 
     get_matrixIndex(coorY, coorX)

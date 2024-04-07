@@ -1,8 +1,9 @@
 import { Settings } from './settings.js';
 import { BoardImg } from '../components/boardImg.js';
 import { Board } from '../components/board.js';
+import { Marcador } from '../components/marcador.js';
 import { Textos } from '../components/textos.js';
-import { BotonNuevaPartida } from "../components/boton-nuevapartida.js";
+import { BotonNuevaPartida, BotonFullScreen } from "../components/boton-nuevapartida.js";
 import { particulas, play_sonidos } from '../functions/functions.js';
 
 export class Congratulations extends Phaser.Scene
@@ -14,17 +15,10 @@ export class Congratulations extends Phaser.Scene
 
   init()
   {
-    Settings.array_numbers =
-    [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8]
-    ];
-
     this.boardimg = new BoardImg(this);
-    this.board = new Board(this, false);
+    this.board = new Board(this, true);
 
-    // this.instanciar_marcadores();
+    this.instanciar_marcadores();
     this.botoninicio = new BotonNuevaPartida(this);
   }
 
@@ -34,20 +28,20 @@ export class Congratulations extends Phaser.Scene
 
     this.add.image(0, 0, 'fondo').setOrigin(0, 0);
 
-    // this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
+    this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
 
     this.boardimg.create();
     this.board.create();
     
-    // this.marcadorPtos.create();
-    // this.marcadorHi.create();
-    // this.botonfullscreen.create();
+    this.marcadorPtos.create();
+    this.marcadorHi.create();
+    this.botonfullscreen.create();
 
-    const aparecerBoton = 5000;
+    const aparecerBoton = 6000;
 
     this.txt = new Textos(this, {
       x: Math.floor(this.sys.game.config.width / 2),
-      y: Math.floor(this.sys.game.config.height / 2.1),
+      y: Math.floor(this.sys.game.config.height / 2.3),
       txt: ' Congratulations! ',
       size: 100, color: '#ffa', style: 'bold',
       stroke: '#f91', sizeStroke: 16,
@@ -102,6 +96,33 @@ export class Congratulations extends Phaser.Scene
   }
 
   update() {}
+
+  instanciar_marcadores()
+  {
+    const ancho = this.sys.game.config.width;
+    const alto = this.sys.game.config.height;
+
+    this.ui = [null, null];
+
+    this.ui[0] = this.add.image(0, 0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+
+    this.ui[1] = this.add.image(Math.floor(this.sys.game.config.width / 2.4),
+      0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+
+    const marcadoresPosY = Math.floor(this.ui[0].height / 2);
+
+    this.marcadorPtos = new Marcador(this, {
+      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(), color: '#eee', strokeColor: '#f0bb10', id: 0
+    });
+
+    this.marcadorHi = new Marcador(this, {
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+    });
+
+    this.botonfullscreen = new BotonFullScreen(this, {
+      x: Math.floor(ancho / 1.1), y: marcadoresPosY, id: 'boton-fullscreen', scX: 1.2, scY: 0.8, ang: 0
+    });
+  }
 
   set_sonidos()
   {

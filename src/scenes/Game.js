@@ -78,7 +78,18 @@ export class Game extends Scene
     else
     {
       console.log('hecho');
-      this.scene.start('Congratulations');
+
+      const timeline = this.add.timeline([
+        {
+          at: 110,
+          run: () =>
+          {
+            this.scene.start('Congratulations');
+          }
+        }
+      ]);
+      
+      timeline.play();
     }
 
     // console.log(this.check_puzzleDone());
@@ -86,7 +97,7 @@ export class Game extends Scene
 
   check_puzzleDone()
   {
-    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 3;
+    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
   }
 
   set_pausaInicial(tiempo)
@@ -125,23 +136,7 @@ export class Game extends Scene
     this.timeline.play();
     console.log(this.txtpreparado);
   }
-
-  texto_enhorabuena()
-  {
-    this.txtcongrats = new Textos(this, {
-      x: this.jugador.get().x, y: 0,
-      txt: ' Congratulations! ',
-      size: 70, color: '#ffa', style: 'bold',
-      stroke: '#5f1', sizeStroke: 16,
-      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
-      bool1: false, bool2: true, origin: [0.5, 0.5],
-      elastic: this.jugador.get().y - Settings.tileXY.y, dura: 3000
-    });
-    
-    this.txtcongrats.create();
-    this.txtcongrats.get().setDepth(Settings.getDepth().textos);
-  }
-
+  
   instanciar_marcadores()
   {
     const ancho = this.sys.game.config.width;

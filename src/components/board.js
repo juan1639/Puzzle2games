@@ -3,9 +3,10 @@ import { play_sonidos } from "../functions/functions.js";
 
 export class Board
 {
-    constructor(scene)
+    constructor(scene, resolve)
     {
         this.relatedScene = scene;
+        this.resolve = resolve;
     }
 
     create()
@@ -20,7 +21,15 @@ export class Board
 
         this.lenArrayNumbers = Settings.array_numbers.length * Settings.array_numbers[0].length;
         this.drawNumbers = [];
-        this.set_draw();
+
+        if (!this.resolve)
+        {
+            this.set_draw();
+        }
+        else
+        {
+            this.drawNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
+        }
 
         this.puzzle_done = [];
 
@@ -47,16 +56,19 @@ export class Board
             y: this.paddingY
         });
 
-        this.board.children.iterate((numero, index) =>
+        if (!this.resolve)
         {
-            numero.setInteractive();
-
-            numero.on('pointerdown', () =>
+            this.board.children.iterate((numero, index) =>
             {
-                console.log('click' + numero.x + numero.y);
-                this.clickHandler(numero);
+                numero.setInteractive();
+
+                numero.on('pointerdown', () =>
+                {
+                    console.log('click' + numero.x + numero.y);
+                    this.clickHandler(numero);
+                });
             });
-        });
+        }
 
         this.sound_jump = this.relatedScene.sonido_jump;
 

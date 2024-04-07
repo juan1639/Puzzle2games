@@ -33,6 +33,8 @@ export class BotonNuevaPartida
     this.boton.on('pointerdown', (e) => {
 
       console.log(e);
+      if (this.relatedScene.sonido_fireworks) this.relatedScene.sonido_fireworks.pause();
+      
       play_sonidos(sonido_switch, false, 0.7);
       this.relatedScene.scene.start(siguienteScene);
     });

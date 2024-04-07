@@ -228,13 +228,13 @@ export class BotonEsc
     this.boton.on('pointerdown', (e) =>
     {
       // console.log(e);
-      if (texto === ' Esc ')
+      if (texto.includes('Esc'))
       {
         if (Settings.getAudio().music) Settings.getAudio().music.volume = 0;
         play_sonidos(sonido_abucheos, false, 0.8);
       }
 
-      if (texto.slice(1, 6) === 'Music')
+      if (texto.includes('Music'))
       {
         if (Settings.getAudio().music.volume > 0)
         {

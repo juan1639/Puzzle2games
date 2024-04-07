@@ -1,3 +1,10 @@
+# Puzzle 2 Games
+
+To Play:
+https://juan1639.github.io/Puzzle2games
+
+<img src="./miniatura-puzzle2games.png"/>
+
 # Phaser Vite Template
 
 This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow and includes scripts to generate production-ready builds.

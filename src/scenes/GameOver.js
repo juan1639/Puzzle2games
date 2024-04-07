@@ -12,6 +12,8 @@ export class PreGame extends Scene
 
     init()
     {
+        Settings.getAudio().music.volume = 0;
+        
         Settings.setPuntos(0);
         Settings.setNivel(1);
         Settings.setGameOver(false);

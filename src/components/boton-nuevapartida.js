@@ -20,22 +20,24 @@ export class BotonNuevaPartida
     this.boton = this.relatedScene.add.sprite(Math.floor(ancho / 2), Math.floor(alto / 1.3), botonCondicional).setInteractive();
     this.boton.setScale(0.6).setAngle(1).setDepth(30);
 
-    this.boton.on('pointerover', () => {
+    this.boton.on('pointerover', () =>
+    {
       // this.boton.setFrame(1);
       this.boton.setScale(0.7);
     });
 
-    this.boton.on('pointerout', () => {
+    this.boton.on('pointerout', () =>
+    {
       // this.boton.setFrame(0);
       this.boton.setScale(0.6);
     });
 
-    this.boton.on('pointerdown', (e) => {
-
-      console.log(e);
-      if (this.relatedScene.sonido_fireworks) this.relatedScene.sonido_fireworks.pause();
-      
+    this.boton.on('pointerdown', (e) =>
+    {
+      // console.log(e);
+      if (Settings.getAudio().fireWorks) Settings.getAudio().fireWorks.volume = 0;
       play_sonidos(sonido_switch, false, 0.7);
+
       this.relatedScene.scene.start(siguienteScene);
     });
 

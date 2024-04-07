@@ -50,6 +50,12 @@ export class Settings
         vel: 100
     };
 
+    static audio =
+    {
+        music: null,
+        fireWorks: null
+    };
+
     // --- Getters ---
     static getTxtScore()
     {
@@ -86,6 +92,11 @@ export class Settings
         return Settings.animations;
     }
 
+    static getAudio()
+    {
+        return Settings.audio;
+    }
+
     // --- Setters ---
     static setGameOver(bool)
     {
@@ -110,5 +121,15 @@ export class Settings
     static setAnimationsVel(vel)
     {
         Settings.animations.vel = vel;
+    }
+
+    static setAudioMusic(musica)
+    {
+        Settings.audio.music = musica;
+    }
+
+    static setAudioFireWorks(fw)
+    {
+        Settings.audio.fireWorks = fw;
     }
 }

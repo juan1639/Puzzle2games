@@ -11,10 +11,7 @@ import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
 import { Settings } from './settings.js';
 import { BotonFullScreen, BotonNuevaPartida } from '../components/boton-nuevapartida.js';
-
-import {
-  play_sonidos
-} from '../functions/functions.js';
+import { play_sonidos } from '../functions/functions.js';
 
 export class Game extends Scene
 {
@@ -25,6 +22,8 @@ export class Game extends Scene
 
   init()
   {
+    play_sonidos(Settings.getAudio().music, true, 0.6);
+
     Settings.setGameOver(false);
 
     Settings.array_numbers =
@@ -84,6 +83,7 @@ export class Game extends Scene
           at: 110,
           run: () =>
           {
+            if (Settings.getAudio().music) Settings.getAudio().music.pause();
             this.scene.start('Congratulations');
           }
         }
@@ -97,7 +97,7 @@ export class Game extends Scene
 
   check_puzzleDone()
   {
-    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
+    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 3;
   }
 
   set_pausaInicial(tiempo)

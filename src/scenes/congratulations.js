@@ -44,7 +44,7 @@ export class Congratulations extends Phaser.Scene
       y: Math.floor(this.sys.game.config.height / 2.3),
       txt: ' Congratulations! ',
       size: 100, color: '#ffa', style: 'bold',
-      stroke: '#f91', sizeStroke: 16,
+      stroke: '#f71', sizeStroke: 16,
       shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
       bool1: false, bool2: true, origin: [0.5, 0.5],
       elastic: false, dura: 0
@@ -76,7 +76,7 @@ export class Congratulations extends Phaser.Scene
         at: Math.floor(aparecerBoton / 2),
         run: () =>
         {
-          play_sonidos(this.sonido_fireworks, false, 0.9);
+          play_sonidos(Settings.getAudio().fireWorks, false, 0.9);
         }
       },
       {
@@ -127,6 +127,5 @@ export class Congratulations extends Phaser.Scene
   set_sonidos()
   {
     this.sonido_aplausos = this.sound.add('aplausos');
-    this.sonido_fireworks = this.sound.add('fireworks');
   }
 }

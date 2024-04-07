@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Textos } from '../components/textos.js';
 import { play_sonidos, particulas } from '../functions/functions.js';
 import { BotonNuevaPartida } from '../components/boton-nuevapartida.js';
+import { Settings } from './settings.js';
 
 export class MainMenu extends Scene
 {
@@ -12,6 +13,9 @@ export class MainMenu extends Scene
 
     init()
     {
+        Settings.setAudioMusic(this.sound.add('music-puzzle-game'));
+        Settings.setAudioFireWorks(this.sound.add('fireworks'));
+        
         this.botoninicio = new BotonNuevaPartida(this);
 
         this.txt = new Textos(this, {
@@ -30,7 +34,6 @@ export class MainMenu extends Scene
 
     create ()
     {
-        const music = this.sound.add('music-puzzle-game');
         const aparecerBoton = 1800; // 1800
 
         const width = this.sys.game.config.width;
@@ -69,7 +72,7 @@ export class MainMenu extends Scene
 
         timeline.play();
 
-        play_sonidos(music, true, 0.6);
+        play_sonidos(Settings.getAudio().music, true, 0.6);
         
         console.log(this.txt);
     }  

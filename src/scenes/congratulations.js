@@ -4,7 +4,7 @@ import { Board } from '../components/board.js';
 import { Marcador } from '../components/marcador.js';
 import { Textos } from '../components/textos.js';
 import { BotonNuevaPartida, BotonFullScreen } from "../components/boton-nuevapartida.js";
-import { particulas, play_sonidos } from '../functions/functions.js';
+import { particulas, format_time, play_sonidos } from '../functions/functions.js';
 
 export class Congratulations extends Phaser.Scene
 {
@@ -90,6 +90,12 @@ export class Congratulations extends Phaser.Scene
     
     timeline.play();
 
+    const playerTime = Settings.getPuntos();
+    const hiTime = Settings.getRecord();
+
+    this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
+    this.marcadorHi.update(' Hi: ', format_time(hiTime));
+
     play_sonidos(this.sonido_aplausos, false, 0.9);
 
     console.log(this.txt);
@@ -112,7 +118,8 @@ export class Congratulations extends Phaser.Scene
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(), color: '#eee', strokeColor: '#f0bb10', id: 0
+      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
+      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: true
     });
 
     this.marcadorHi = new Marcador(this, {

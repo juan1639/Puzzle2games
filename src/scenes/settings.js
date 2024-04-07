@@ -16,7 +16,7 @@ export class Settings
 
     static puntos = 0;
     static nivel = 1;
-    static hi = 59;
+    static hi = 151;
     static txtScore = ' Score: ';
     static txtTime = ' Time: ';
 

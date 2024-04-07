@@ -13,7 +13,7 @@ export class PreGame extends Scene
     init()
     {
         Settings.getAudio().music.volume = 0;
-        
+
         Settings.setPuntos(0);
         Settings.setNivel(1);
         Settings.setGameOver(false);
@@ -27,14 +27,14 @@ export class PreGame extends Scene
             left: Math.floor(ancho / 2 - ancho / 4),
             top: Math.floor(alto / 2.1),
             img: 'img-menu-numbers',
-            scale: 0.3, texto: '   Puzzle \n Numbers ', id: 'teclado'
+            scale: 0.3, texto: '   Puzzle \n Numbers ', id: '#f71'
         }));
 
         this.choosegame.push(new ElegirJuego(this, {
             left: Math.floor(ancho / 2 + ancho / 4),
             top: Math.floor(alto / 2.1),
             img: 'img-menu-jewels',
-            scale: 0.3, texto: ' Puzzle \n Jewels ', id: 'mobile'
+            scale: 0.3, texto: ' Puzzle \n Jewels ', id: '#9f1'
         }));
 
         this.txt = new Textos(this, {

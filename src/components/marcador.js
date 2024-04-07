@@ -10,12 +10,12 @@ export class Marcador
 
     create()
     {
-        const { x, y, size, txt, color, strokeColor, id } = this.datos;
+        const {x, y, size, txt, color, strokeColor, id, resuelto} = this.datos;
 
         let texto = '';
 
-        if (id === 0) texto = `${txt}${Settings.getPuntos()}`;
-        if (id === 2) texto = `${txt}${Settings.getRecord()}`;
+        if (id === 0) texto = `${txt}`;
+        if (id === 2) texto = `${txt}`;
 
         this.marcador = this.relatedScene.add.text(x, y, texto, {
             fontSize: size + 'px',

@@ -127,7 +127,7 @@ export class ElegirJuego
       y: Math.floor(top * 1.7),
       txt: texto,
       size: 45, color: '#ffa', style: 'bold',
-      stroke: '#f71', sizeStroke: 16,
+      stroke: id, sizeStroke: 16,
       shadowOsx: 2, shadowOsy: 2, shadowColor: '#111',
       bool1: false, bool2: true, origin: [0.5, 0.5],
       elastic: false, dura: 0

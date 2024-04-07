@@ -41,17 +41,47 @@ function particulas(x, y, particula, vel, span, size, color, unlimited, sprite, 
     if (bool) partis.startFollow(sprite);
 }
 
-function suma_puntos(puntos)
+function format_time(timeToFormat)
 {
-    const bonus = Settings.getPuntos() + puntos.getData('puntos');
-    Settings.setPuntos(bonus);
-    // console.log(bonus, Settings.getPuntos());
-}
+  let formated = timeToFormat.toString();
+  let minute = 0;
+  let second = 0;
 
-function restar_vida()
-{
-    const actualizar = Settings.getVidas() - 1;
-    Settings.setVidas(actualizar);
+  if (timeToFormat < 10)
+  {
+    return `00:0${formated}`;
+  }
+
+  if (timeToFormat > 59)
+  {
+    minute = Math.floor(timeToFormat / 60);
+    second = timeToFormat - minute * 60;
+
+    if (second < 10)
+    {
+      if (minute < 10)
+      {
+        return `0${minute}:0${second.toString()}`;
+      }
+      else
+      {
+        return `${minute}:0${second.toString()}`;
+      }
+    }
+    else
+    {
+      if (minute < 10)
+      {
+        return `0${minute}:${second.toString()}`;
+      }
+      else
+      {
+        return `${minute}:${second.toString()}`;
+      }
+    }
+  }
+
+  return `00:${formated}`;
 }
 
 function play_sonidos(id, loop, volumen)
@@ -63,5 +93,6 @@ function play_sonidos(id, loop, volumen)
 
 export {
   particulas,
+  format_time,
   play_sonidos
 };

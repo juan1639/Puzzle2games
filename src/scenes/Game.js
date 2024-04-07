@@ -11,7 +11,7 @@ import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
 import { Settings } from './settings.js';
 import { BotonFullScreen, BotonNuevaPartida } from '../components/boton-nuevapartida.js';
-import { play_sonidos } from '../functions/functions.js';
+import { play_sonidos, format_time } from '../functions/functions.js';
 
 export class Game extends Scene
 {
@@ -66,6 +66,8 @@ export class Game extends Scene
     this.marcadorPtos.create();
     this.marcadorHi.create();
     this.botonfullscreen.create();
+    
+    this.set_clock();
   }
 
   update()
@@ -136,6 +138,28 @@ export class Game extends Scene
     this.timeline.play();
     console.log(this.txtpreparado);
   }
+
+  set_clock()
+  {
+    this.playerClock = this.add.timeline([
+      {
+        at: 1000,
+        run: () =>
+        {
+          // console.log('sg');
+          const playerTime = Settings.getPuntos();
+          const hiTime = Settings.getRecord();
+
+          Settings.setPuntos(playerTime + 1);
+          this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
+
+          this.marcadorHi.update(' Hi: ', format_time(hiTime));
+        }
+      }
+    ]);
+
+    this.playerClock.repeat(-1).play();
+  }
   
   instanciar_marcadores()
   {
@@ -152,11 +176,12 @@ export class Game extends Scene
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(), color: '#eee', strokeColor: '#f0bb10', id: 0
+      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
+      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: false
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Hi: ', color: '#eee', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

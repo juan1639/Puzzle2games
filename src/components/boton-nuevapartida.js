@@ -4,32 +4,45 @@ import { play_sonidos } from '../functions/functions.js';
 
 export class BotonNuevaPartida
 {
-  constructor(scene)
+  constructor(scene, args)
   {
     this.relatedScene = scene;
+    this.args = args;
   }
 
-  create(siguienteScene, gameover)
+  create()
   {
     const sonido_switch = this.relatedScene.sound.add('moneda-mario');
 
-    const ancho = this.relatedScene.sys.game.config.width;
-    const alto = this.relatedScene.sys.game.config.height;
-    const botonCondicional = 'boton-nueva-partida';
-    
-    this.boton = this.relatedScene.add.sprite(Math.floor(ancho / 2), Math.floor(alto / 1.3), botonCondicional).setInteractive();
-    this.boton.setScale(0.6).setAngle(1).setDepth(30);
+    const {left, top, id, scX, scY, angle, originX, originY, texto, nextScene} = this.args;
+
+    this.boton = this.relatedScene.add.sprite(left, top, id).setInteractive();
+    this.boton.setScale(scX, scY).setAngle(1).setDepth(Settings.depth.botones);
+
+    this.txt = new Textos(this.relatedScene, {
+      x: left,
+      y: top,
+      txt: texto,
+      size: 30, color: '#ff1', style: 'bold',
+      stroke: '#1bd', sizeStroke: 16,
+      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+      bool1: false, bool2: true, origin: [0.5, 0.5],
+      elastic: false, dura: 0
+    });
+
+    this.txt.create();
+    this.txt.get().setDepth(Settings.depth.textos).setAlpha(1).setScale(1);
 
     this.boton.on('pointerover', () =>
     {
       // this.boton.setFrame(1);
-      this.boton.setScale(0.7);
+      this.boton.setScale(scX + 0.1, scY + 0.1);
     });
 
     this.boton.on('pointerout', () =>
     {
       // this.boton.setFrame(0);
-      this.boton.setScale(0.6);
+      this.boton.setScale(scX, scY);
     });
 
     this.boton.on('pointerdown', (e) =>
@@ -38,12 +51,12 @@ export class BotonNuevaPartida
       if (Settings.getAudio().fireWorks) Settings.getAudio().fireWorks.volume = 0;
       play_sonidos(sonido_switch, false, 0.7);
 
-      this.relatedScene.scene.start(siguienteScene);
+      this.relatedScene.scene.start(nextScene);
     });
 
     this.relatedScene.tweens.add(
     {
-      targets: this.boton,
+      targets: [this.boton, this.txt.get()],
       angle: 359,
       ease: 'Elastic',
       yoyo: true,
@@ -74,7 +87,7 @@ export class BotonFullScreen
 
     this.boton = this.relatedScene.add.image(x, y, id).setInteractive();
     this.boton.setScale(scX, scY);
-    this.boton.setAngle(ang).setFrame(0).setDepth(50);
+    this.boton.setAngle(ang).setFrame(0).setDepth(Settings.depth.botones);
     this.boton.setX(x).setY(y);
 
     this.boton.on('pointerover', () =>
@@ -119,7 +132,7 @@ export class ElegirJuego
     const {left, top, img, scale, texto, id} = this.args;
 
     this.chooseGame = this.relatedScene.add.sprite(left, top, img).setInteractive();
-    this.chooseGame.setOrigin(0.5, 0.5).setScale(scale).setDepth(Settings.depth.textos);
+    this.chooseGame.setOrigin(0.5, 0.5).setScale(scale).setDepth(Settings.depth.botones);
     this.chooseGame.setData('id', id);
 
     this.txt = new Textos(this.relatedScene, {
@@ -136,6 +149,11 @@ export class ElegirJuego
     this.txt.create();
     this.escalaTxt = scale * 3;
     this.txt.get().setScale(this.escalaTxt);
+
+    this.relatedScene.tweens.add(
+    {
+      targets: this.txt.get(), scale: 1.1, yoyo: true, duration: 1400, repeat: -1
+    });
 
     this.chooseGame.on('pointerover', () =>
     {
@@ -160,5 +178,82 @@ export class ElegirJuego
   get()
   {
     return this.chooseGame;
+  }
+}
+
+// ==================================================================
+export class BotonEsc
+{
+  constructor(scene, args)
+  {
+    this.relatedScene = scene;
+    this.args = args;
+  }
+
+  create()
+  {
+    const sonido_abucheos = this.relatedScene.sound.add('abucheos');
+
+    const {left, top, id, scX, scY, angle, originX, originY, texto, nextScene} = this.args;
+
+    this.boton = this.relatedScene.add.sprite(left, top, id).setInteractive();
+    this.boton.setOrigin(originX, originY).setScale(scX, scY).setAngle(angle).setDepth(Settings.depth.botones);
+
+    this.txt = new Textos(this.relatedScene, {
+      x: left,
+      y: top,
+      txt: texto,
+      size: 25, color: '#fb1', style: 'bold',
+      stroke: '#f61', sizeStroke: 8,
+      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+      bool1: false, bool2: true, origin: [0.5, 0.5],
+      elastic: false, dura: 0
+    });
+
+    this.txt.create();
+    this.txt.get().setDepth(Settings.depth.botones).setAlpha(1).setScale(1);
+
+    this.boton.on('pointerover', () =>
+    {
+      // this.boton.setFrame(1);
+      this.boton.setScale(scX + 0.1, scY + 0.1);
+    });
+
+    this.boton.on('pointerout', () =>
+    {
+      // this.boton.setFrame(0);
+      this.boton.setScale(scX, scY);
+    });
+
+    this.boton.on('pointerdown', (e) =>
+    {
+      // console.log(e);
+      if (texto === ' Esc ')
+      {
+        if (Settings.getAudio().music) Settings.getAudio().music.volume = 0;
+        play_sonidos(sonido_abucheos, false, 0.8);
+      }
+
+      if (texto.slice(1, 6) === 'Music')
+      {
+        if (Settings.getAudio().music.volume > 0)
+        {
+          Settings.getAudio().music.volume = 0;
+          this.txt.get().setAlpha(0.3);
+        }
+        else
+        {
+          Settings.getAudio().music.volume = 0.6;
+          this.txt.get().setAlpha(1);
+        }
+      } 
+
+      if (nextScene !== '') this.relatedScene.scene.start(nextScene);
+    });
+  }
+
+  get()
+  {
+    return this.boton;
   }
 }

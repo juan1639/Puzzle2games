@@ -16,7 +16,13 @@ export class MainMenu extends Scene
         Settings.setAudioMusic(this.sound.add('music-puzzle-game'));
         Settings.setAudioFireWorks(this.sound.add('fireworks'));
         
-        this.botoninicio = new BotonNuevaPartida(this);
+        this.botoninicio = new BotonNuevaPartida(this, {
+            left: Math.floor(this.sys.game.config.width / 2),
+            top: Math.floor(this.sys.game.config.height / 1.3),
+            id: 'boton-nueva-partida',
+            scX: 0.7, scY: 0.7, angle: 1, originX: 0.5, originY: 0.5,
+            texto: ' New Game ', nextScene: 'PreGame'
+        });
 
         this.txt = new Textos(this, {
             x: Math.floor(this.sys.game.config.width / 2),
@@ -65,7 +71,7 @@ export class MainMenu extends Scene
                 at: aparecerBoton,
                 run: () =>
                 {
-                    this.botoninicio.create('PreGame', false);
+                    this.botoninicio.create();
                 }
             }
         ]);

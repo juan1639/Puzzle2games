@@ -19,7 +19,14 @@ export class Congratulations extends Phaser.Scene
     this.board = new Board(this, true);
 
     this.instanciar_marcadores();
-    this.botoninicio = new BotonNuevaPartida(this);
+
+    this.botoninicio = new BotonNuevaPartida(this, {
+      left: Math.floor(this.sys.game.config.width / 2),
+      top: Math.floor(this.sys.game.config.height / 1.3),
+      id: 'boton-nueva-partida',
+      scX: 0.7, scY: 0.7, angle: 1, originX: 0.5, originY: 0.5,
+      texto: ' Continue ', nextScene: 'PreGame'
+    });
   }
 
   create()
@@ -27,6 +34,17 @@ export class Congratulations extends Phaser.Scene
     this.set_sonidos();
 
     this.add.image(0, 0, 'fondo').setOrigin(0, 0);
+
+    particulas(
+      this.sys.game.config.width / 2,
+      this.sys.game.config.height / 2,
+      'particula1',
+      {min: 90, max: 320},
+      {min: 5500, max: 6000},
+      {start: 0, end: 1},
+      0xffcc11,
+      true, null, false, this
+    );
 
     this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
 
@@ -55,21 +73,8 @@ export class Congratulations extends Phaser.Scene
 
     this.tweens.add(
     {
-      targets: this.txt.get(),
-      scale: 1,
-      duration: 2000
+      targets: this.txt.get(), scale: 1, duration: 2500
     });
-
-    particulas(
-      this.sys.game.config.width / 2,
-      this.sys.game.config.height / 2,
-      'particula1',
-      {min: 90, max: 320},
-      {min: 5500, max: 6000},
-      {start: 0, end: 1},
-      0xffcc11,
-      true, null, false, this
-    );
 
     const timeline = this.add.timeline([
       {
@@ -83,7 +88,7 @@ export class Congratulations extends Phaser.Scene
         at: aparecerBoton,
         run: () =>
         {
-          this.botoninicio.create('PreGame');
+          this.botoninicio.create();
         }
       }
     ]);
@@ -96,12 +101,58 @@ export class Congratulations extends Phaser.Scene
     this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
     this.marcadorHi.update(' Hi: ', format_time(hiTime));
 
+    this.check_newRecord(playerTime, hiTime);
+
     play_sonidos(this.sonido_aplausos, false, 0.9);
 
     console.log(this.txt);
   }
 
   update() {}
+
+  check_newRecord(playerTime, hiTime)
+  {
+    if (playerTime <= hiTime)
+    {
+      console.log('new record!');
+      Settings.setRecord(playerTime);
+
+      const timeline = this.add.timeline([
+        {
+          at: 2500,
+          run: () =>
+          {
+            this.txt = new Textos(this, {
+              x: Math.floor(this.sys.game.config.width / 2),
+              y: Math.floor(this.sys.game.config.height / 4),
+              txt: ' You set a New Record! ',
+              size: 70, color: '#ffa', style: 'bold',
+              stroke: '#f11', sizeStroke: 16,
+              shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+              bool1: false, bool2: true, origin: [0.5, 0.5],
+              elastic: false, dura: 0
+            });
+        
+            this.txt.create();
+            this.txt.get().setDepth(Settings.depth.textos).setAlpha(1).setScale(1);
+
+            this.tweens.add(
+            {
+              targets: this.txt.get(),
+              angle: 359,
+              ease: 'Elastic',
+              yoyo: true,
+              hold: 2000,
+              duration: 3000,
+              repeat: -1
+            });
+          }
+        }
+      ]);
+
+      timeline.play();
+    }
+  }
 
   instanciar_marcadores()
   {

@@ -83,6 +83,8 @@ export class Board
 
     clickHandler(numero)
     {
+        if (Settings.pausas.inicialBool) return;
+        
         const [y, x] = this.get_matrixIndex(numero.y, numero.x);
         this.check_neighbours(y, x, numero, true);
     }

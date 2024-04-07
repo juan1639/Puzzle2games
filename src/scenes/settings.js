@@ -23,6 +23,7 @@ export class Settings
     static pausas =
     {
         inicial: 4000,
+        inicialBool: true,
         showBonus: 3500,
         nivelSuperado: 7000
     };
@@ -33,7 +34,8 @@ export class Settings
         efectos: 200,
         ui: 250,
         marcadores: 300,
-        textos: 400,
+        botones: 400,
+        textos: 500
     };
 
     static empty = 8;

@@ -10,8 +10,8 @@ import { BoardImg } from '../components/boardImg.js';
 import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
 import { Settings } from './settings.js';
-import { BotonFullScreen, BotonNuevaPartida } from '../components/boton-nuevapartida.js';
 import { play_sonidos, format_time } from '../functions/functions.js';
+import { BotonFullScreen, BotonEsc } from '../components/boton-nuevapartida.js';
 
 export class Game extends Scene
 {
@@ -33,13 +33,12 @@ export class Game extends Scene
       [Settings.empty, Settings.empty, Settings.empty]
     ];
 
-    this.set_pausaInicial(4300);
+    this.set_initPause(3500);
 
     this.boardimg = new BoardImg(this);
     this.board = new Board(this, false);
 
     this.instanciar_marcadores();
-    this.botonrejugar = new BotonNuevaPartida(this);
   }
 
   preload() {}
@@ -66,8 +65,8 @@ export class Game extends Scene
     this.marcadorPtos.create();
     this.marcadorHi.create();
     this.botonfullscreen.create();
-    
-    this.set_clock();
+    this.botonesc.create();
+    this.botonmusic.create();
   }
 
   update()
@@ -93,50 +92,68 @@ export class Game extends Scene
       
       timeline.play();
     }
-
-    // console.log(this.check_puzzleDone());
   }
 
   check_puzzleDone()
   {
-    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 3;
+    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
   }
 
-  set_pausaInicial(tiempo)
+  set_initPause(tiempo)
   {
-    this.pausa_inicial = {
-      duracion: tiempo,
-      activa: false
-    };
-
-    return;
+    Settings.pausas.inicial = tiempo;
+    Settings.pausas.inicialBool = true;
 
     this.txtpreparado = new Textos(this, {
-      x: 400,
+      x: Math.floor(this.sys.game.config.width / 2),
       y: 0,
       txt: ' Ready! ',
       size: 78, color: '#ffa', style: 'bold',
       stroke: '#ea1', sizeStroke: 16,
       shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
-      bool1: false, bool2: true, origin: [0.5, 0],
-      elastic: (Settings.pacman.iniY + 1) * Settings.tileXY.y, dura: 3000
+      bool1: false, bool2: true, origin: [0.5, 0.5],
+      elastic: Math.floor(this.sys.game.config.height / 6), dura: 3000
     });
     
     this.txtpreparado.create();
-    this.txtpreparado.get().setDepth(Settings.getDepth().textos);
+    this.txtpreparado.get().setDepth(Settings.depth.textos);
 
     this.timeline = this.add.timeline([
       {
-        at: this.pausa_inicial.duracion,
-        run: () => {
-          this.pausa_inicial.activa = false,
+        at: Settings.pausas.inicial,
+        run: () =>
+        {
+          Settings.pausas.inicialBool = false,
           this.txtpreparado.get().setVisible(false);
+          this.set_clock();
+          this.set_txtGo();
         }
       }
     ]);
 
     this.timeline.play();
     console.log(this.txtpreparado);
+  }
+
+  set_txtGo()
+  {
+    const txtgo = new Textos(this, {
+      x: Math.floor(this.sys.game.config.width / 2),
+      y: Math.floor(this.sys.game.config.height / 6),
+      txt: ' Go! ',
+      size: 80, color: '#ffa', style: 'bold',
+      stroke: '#ea1', sizeStroke: 16,
+      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+      bool1: false, bool2: true, origin: [0.5, 0.5],
+      elastic: false, dura: 0
+    });
+    
+    txtgo.create();
+    txtgo.get().setDepth(Settings.depth.textos);
+
+    this.tweens.add({
+      targets: txtgo.get(), alpha: 0, duration: 2200
+    });
   }
 
   set_clock()
@@ -186,6 +203,16 @@ export class Game extends Scene
 
     this.botonfullscreen = new BotonFullScreen(this, {
       x: Math.floor(ancho / 1.1), y: marcadoresPosY, id: 'boton-fullscreen', scX: 1.2, scY: 0.8, ang: 0
+    });
+
+    this.botonesc = new BotonEsc(this, {
+      left: Math.floor(ancho / 1.1), top: Math.floor(alto / 6), id: 'ui-1',
+      scX: 0.5, scY: 0.5, angle: 0, originX: 0.5, originY: 0.5, texto: ' Esc ', nextScene: 'PreGame'
+    });
+
+    this.botonmusic = new BotonEsc(this, {
+      left: Math.floor(ancho / 1.1), top: Math.floor(alto / 4), id: 'ui-1',
+      scX: 0.5, scY: 0.5, angle: 0, originX: 0.5, originY: 0.5, texto: ' Music ', nextScene: ''
     });
   }
 

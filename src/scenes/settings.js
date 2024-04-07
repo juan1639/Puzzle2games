@@ -35,7 +35,8 @@ export class Settings
         ui: 250,
         marcadores: 300,
         botones: 400,
-        textos: 500
+        textos: 500,
+        howtoplay: 600
     };
 
     static empty = 8;

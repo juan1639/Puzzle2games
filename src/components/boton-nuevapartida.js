@@ -246,7 +246,21 @@ export class BotonEsc
           Settings.getAudio().music.volume = 0.6;
           this.txt.get().setAlpha(1);
         }
-      } 
+      }
+      
+      if (texto.includes('?'))
+      {
+        if (!this.relatedScene.bg.visible)
+        {
+          this.relatedScene.bg.setVisible(true);
+          this.relatedScene.txthowtoplay.get().setVisible(true);
+        }
+        else
+        {
+          this.relatedScene.bg.setVisible(false);
+          this.relatedScene.txthowtoplay.get().setVisible(false);
+        }
+      }
 
       if (nextScene !== '') this.relatedScene.scene.start(nextScene);
     });

@@ -39,6 +39,7 @@ export class Game extends Scene
     this.board = new Board(this, false);
 
     this.instanciar_marcadores();
+    this.set_txtHowToPlay();
   }
 
   preload() {}
@@ -67,6 +68,7 @@ export class Game extends Scene
     this.botonfullscreen.create();
     this.botonesc.create();
     this.botonmusic.create();
+    this.botonhowtoplay.create();
   }
 
   update()
@@ -211,9 +213,41 @@ export class Game extends Scene
     });
 
     this.botonmusic = new BotonEsc(this, {
-      left: Math.floor(ancho / 1.1), top: Math.floor(alto / 4), id: 'ui-1',
+      left: Math.floor(ancho / 1.1), top: Math.floor(alto / 3.6), id: 'ui-1',
       scX: 0.5, scY: 0.5, angle: 0, originX: 0.5, originY: 0.5, texto: ' Music ', nextScene: ''
     });
+
+    this.botonhowtoplay = new BotonEsc(this, {
+      left: Math.floor(ancho / 1.1), top: Math.floor(alto / 2.6), id: 'ui-1',
+      scX: 0.5, scY: 0.5, angle: 0, originX: 0.5, originY: 0.5, texto: ' ? ', nextScene: ''
+    });
+  }
+
+  set_txtHowToPlay()
+  {
+    this.bg = this.add.rectangle(
+      Math.floor(this.sys.game.config.width / 2),
+      Math.floor(this.sys.game.config.height / 2),
+      Math.floor(this.sys.game.config.width / 1.4),
+      Math.floor(this.sys.game.config.height / 1.4),
+      0x777777
+    );
+
+    this.bg.setDepth(Settings.depth.howtoplay).setStrokeStyle(2, 0xaaaaaa).setVisible(false);
+
+    this.txthowtoplay = new Textos(this, {
+      x: Math.floor(this.sys.game.config.width / 2),
+      y: Math.floor(this.sys.game.config.height / 2),
+      txt: ' Try to order the numbers \n from least to greatest. \n   1   2   3 \n   4   5   6 \n   7   8',
+      size: 40, color: '#ffa', style: 'bold',
+      stroke: '#18a', sizeStroke: 16,
+      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+      bool1: false, bool2: true, origin: [0.5, 0.5],
+      elastic: false, dura: 0
+    });
+    
+    this.txthowtoplay.create();
+    this.txthowtoplay.get().setDepth(Settings.depth.howtoplay).setVisible(false);
   }
 
   set_sonidos()

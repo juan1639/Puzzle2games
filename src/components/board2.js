@@ -35,7 +35,7 @@ export class Board
 
         this.board = this.relatedScene.physics.add.group(
         {
-            key: 'tiles-numbers',
+            key: 'tiles-jewels',
             frame: this.drawNumbers,
             // repeat: this.lenArrayNumbers - 1
         });
@@ -152,6 +152,15 @@ export class Board
 
     set_draw()
     {
+        const array_jewels = [
+            'diamond_0000', 'diamond_0000', 'diamond_0000', 'diamond_0000',            
+            'prism_0000', 'prism_0000', 'prism_0000', 'prism_0000',            
+            'ruby_0000', 'ruby_0000', 'ruby_0000', 'ruby_0000',            
+            'square_0000', 'square_0000', 'square_0000'            
+        ];
+
+        const drawNumbers2 = [];
+
         for (let i = 0; i < Settings.array_numbers.length; i ++)
         {
             for (let ii = 0; ii < Settings.array_numbers[0].length; ii ++)
@@ -162,10 +171,13 @@ export class Board
 
                 do {
                     rnd = Phaser.Math.Between(0, this.lenArrayNumbers - 2);
-                } while (this.drawNumbers.includes(rnd));
+                } while (drawNumbers2.includes(rnd));
 
-                Settings.array_numbers[i][ii] = rnd;
-                this.drawNumbers.push(rnd);
+                const jewel = array_jewels[rnd];
+
+                Settings.array_numbers[i][ii] = jewel;
+                this.drawNumbers.push(jewel);
+                drawNumbers2.push(rnd);
             }
         }
         console.log(Settings.array_numbers);
@@ -173,7 +185,7 @@ export class Board
 
     check_puzzleDone()
     {
-        const check = [];
+        /* const check = [];
         let count = -1;
 
         for (let i = 0; i < Settings.array_numbers.length; i ++)
@@ -189,7 +201,7 @@ export class Board
             }
         }
 
-        return check;
+        return check; */
     }
 
     get()

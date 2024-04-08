@@ -5,7 +5,7 @@
 // 
 // ------------------------------------------------------------
 import { Scene } from 'phaser';
-import { Board } from '../components/board.js';
+import { Board } from '../components/board2.js';
 import { BoardImg } from '../components/boardImg.js';
 import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
@@ -13,22 +13,29 @@ import { Settings } from './settings.js';
 import { play_sonidos, format_time } from '../functions/functions.js';
 import { BotonFullScreen, BotonEsc } from '../components/boton-nuevapartida.js';
 
-export class Game extends Scene
+export class Game2 extends Scene
 {
   constructor()
   {
-    super('Game');
+    super('Game2');
   }
 
   init()
   {
     Settings.setGameOver(false);
 
+    Settings.tileXY =
+    {
+        x: 100,
+        y: 100
+    };
+
     Settings.array_numbers =
     [
-      [Settings.empty, Settings.empty, Settings.empty],
-      [Settings.empty, Settings.empty, Settings.empty],
-      [Settings.empty, Settings.empty, Settings.empty]
+      [Settings.empty, Settings.empty, Settings.empty, Settings.empty],
+      [Settings.empty, Settings.empty, Settings.empty, Settings.empty],
+      [Settings.empty, Settings.empty, Settings.empty, Settings.empty],
+      [Settings.empty, Settings.empty, Settings.empty, Settings.empty]
     ];
 
     this.set_initPause(3500);
@@ -96,7 +103,7 @@ export class Game extends Scene
 
   check_puzzleDone()
   {
-    return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
+    // return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
   }
 
   set_initPause(tiempo)
@@ -156,7 +163,7 @@ export class Game extends Scene
       targets: txtgo.get(), alpha: 0, duration: 2200
     });
   }
-
+  
   set_clock()
   {
     this.playerClock = this.add.timeline([

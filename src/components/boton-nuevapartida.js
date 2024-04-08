@@ -129,7 +129,7 @@ export class ElegirJuego
   {
     const sonido_switch = this.relatedScene.sound.add('moneda-mario');
 
-    const {left, top, img, scale, texto, id} = this.args;
+    const {left, top, img, scale, texto, id, nextScene} = this.args;
 
     this.chooseGame = this.relatedScene.add.sprite(left, top, img).setInteractive();
     this.chooseGame.setOrigin(0.5, 0.5).setScale(scale).setDepth(Settings.depth.botones);
@@ -171,7 +171,7 @@ export class ElegirJuego
     {
       console.log('choose game');
       play_sonidos(sonido_switch, false, 0.7);
-      this.relatedScene.scene.start('Game');
+      this.relatedScene.scene.start(nextScene);
     });
   }
 

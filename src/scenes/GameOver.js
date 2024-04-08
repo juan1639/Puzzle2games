@@ -27,14 +27,16 @@ export class PreGame extends Scene
             left: Math.floor(ancho / 2 - ancho / 4),
             top: Math.floor(alto / 2.1),
             img: 'img-menu-numbers',
-            scale: 0.3, texto: '   Puzzle \n Numbers ', id: '#f71'
+            scale: 0.3, texto: '   Puzzle \n Numbers ',
+            id: '#f71', nextScene: 'Game'
         }));
 
         this.choosegame.push(new ElegirJuego(this, {
             left: Math.floor(ancho / 2 + ancho / 4),
             top: Math.floor(alto / 2.1),
             img: 'img-menu-jewels',
-            scale: 0.3, texto: ' Puzzle \n Jewels ', id: '#9f1'
+            scale: 0.3, texto: ' Puzzle \n Jewels ',
+            id: '#9f1', nextScene: 'Game2'
         }));
 
         this.txt = new Textos(this, {

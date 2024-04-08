@@ -72,6 +72,7 @@ export class Preloader extends Scene
         this.load.image('tile-blue', './img/tile-blue.png');
         this.load.image('board', './img/board-puzzle.png');
         this.load.spritesheet('tiles-numbers', './img/ssheet-puzzle-numbers.png', {frameWidth: 150, frameHeight: 150});
+        this.load.atlas('tiles-jewels', './img/jewels.png', './img/jewels.json');
         
         //  Archivos de audio
         this.load.audio('aplausos', './audio/aplausoseagle.mp3');

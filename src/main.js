@@ -1,5 +1,6 @@
 import { Boot } from './scenes/Boot';
 import { Game } from './scenes/Game';
+import { Game2 } from './scenes/Game2';
 import { PreGame } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
@@ -28,6 +29,7 @@ const config = {
         Preloader,
         MainMenu,
         Game,
+        Game2,
         PreGame,
         Congratulations
     ]

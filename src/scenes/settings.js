@@ -20,6 +20,11 @@ export class Settings
     static txtScore = ' Score: ';
     static txtTime = ' Time: ';
 
+    static timeLimits =
+    [
+        60, 60, 45, 30, 25, 20, 15, 12, 10, 8, 5, 4, 3
+    ];
+
     static pausas =
     {
         inicial: 4000,
@@ -88,6 +93,11 @@ export class Settings
     static getRecord()
     {
         return Settings.hi;
+    }
+
+    static getTimeLimits()
+    {
+        return Settings.timeLimits;
     }
 
     static getAnimations()

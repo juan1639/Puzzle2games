@@ -25,6 +25,7 @@ export class Game extends Scene
     this.set_sonidos();
 
     Settings.setGameOver(false);
+    Settings.setPuntos(0);
 
     Settings.tileXY =
     {
@@ -138,7 +139,7 @@ export class Game extends Scene
         at: Settings.pausas.inicial,
         run: () =>
         {
-          Settings.pausas.inicialBool = false,
+          Settings.pausas.inicialBool = false;
           this.txtpreparado.get().setVisible(false);
           play_sonidos(Settings.getAudio().music, true, 0.6);
           this.set_clock();

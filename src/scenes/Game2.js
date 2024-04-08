@@ -25,6 +25,7 @@ export class Game2 extends Scene
     this.set_sonidos();
 
     Settings.setGameOver(false);
+    Settings.setPuntos(Settings.getTimeLimits()[Settings.getNivel()]);
 
     Settings.tileXY =
     {
@@ -92,7 +93,7 @@ export class Game2 extends Scene
           run: () =>
           {
             if (Settings.getAudio().music) Settings.getAudio().music.pause();
-            this.scene.start('Congratulations');
+            this.scene.start('Congratulations2');
           }
         }
       ]);
@@ -138,6 +139,20 @@ export class Game2 extends Scene
     Settings.pausas.inicial = tiempo;
     Settings.pausas.inicialBool = true;
 
+    this.txtLevel = new Textos(this, {
+        x: Math.floor(this.sys.game.config.width / 2),
+        y: 0,
+        txt: ` Level: ${Settings.getNivel()}`,
+        size: 100, color: '#ffa', style: 'bold',
+        stroke: '#4f1', sizeStroke: 16,
+        shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+        bool1: false, bool2: true, origin: [0.5, 0.5],
+        elastic: Math.floor(this.sys.game.config.height / 2), dura: 3000
+    });
+    
+    this.txtLevel.create();
+    this.txtLevel.get().setDepth(Settings.depth.textos);
+
     this.timeline = this.add.timeline([
         {
             at: Settings.pausas.inicial - 300,
@@ -152,16 +167,17 @@ export class Game2 extends Scene
             at: Settings.pausas.inicial,
             run: () =>
             {
-            Settings.pausas.inicialBool = false,
-            play_sonidos(Settings.getAudio().music, true, 0.6);
-            this.set_clock();
-            this.set_txtGo();
+                Settings.pausas.inicialBool = false;
+                this.txtLevel.get().setVisible(false);
+                play_sonidos(Settings.getAudio().music, true, 0.6);
+                this.set_clock();
+                this.set_txtGo();
             }
         }
     ]);
 
     this.timeline.play();
-    console.log(this.txtpreparado);
+    console.log(this.txtLevel);
   }
 
   set_txtGo()
@@ -196,7 +212,7 @@ export class Game2 extends Scene
           const playerTime = Settings.getPuntos();
           const hiTime = Settings.getRecord();
 
-          Settings.setPuntos(playerTime + 1);
+          Settings.setPuntos(playerTime - 1);
           this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
 
           this.marcadorHi.update(' Hi: ', format_time(hiTime));

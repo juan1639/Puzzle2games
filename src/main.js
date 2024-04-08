@@ -5,6 +5,7 @@ import { PreGame } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { Congratulations } from './scenes/congratulations';
+import { Congratulations2 } from './scenes/Congratulations2';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -31,7 +32,8 @@ const config = {
         Game,
         Game2,
         PreGame,
-        Congratulations
+        Congratulations,
+        Congratulations2
     ]
 };
 

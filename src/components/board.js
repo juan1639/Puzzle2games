@@ -86,10 +86,10 @@ export class Board
         if (Settings.pausas.inicialBool) return;
         
         const [y, x] = this.get_matrixIndex(numero.y, numero.x);
-        this.check_neighbours(y, x, numero, true);
+        this.check_neighbours(y, x, numero);
     }
 
-    check_neighbours(y, x, numero, swapBool)
+    check_neighbours(y, x, numero)
     {
         // console.log(Settings.empty);
 

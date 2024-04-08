@@ -103,7 +103,7 @@ export class Game2 extends Scene
 
   check_puzzleDone()
   {
-    // return this.board.puzzle_done.length === Settings.array_numbers.length * Settings.array_numbers[0].length - 1;
+    return this.board.puzzle_done;
   }
 
   set_initPause(tiempo)

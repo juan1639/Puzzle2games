@@ -31,7 +31,7 @@ export class Board
             this.drawNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
         }
 
-        this.puzzle_done = [];
+        this.puzzle_done = false;
 
         this.board = this.relatedScene.physics.add.group(
         {
@@ -86,10 +86,10 @@ export class Board
         if (Settings.pausas.inicialBool) return;
         
         const [y, x] = this.get_matrixIndex(numero.y, numero.x);
-        this.check_neighbours(y, x, numero, true);
+        this.check_neighbours(y, x, numero);
     }
 
-    check_neighbours(y, x, numero, swapBool)
+    check_neighbours(y, x, numero)
     {
         // console.log(Settings.empty);
 
@@ -185,23 +185,33 @@ export class Board
 
     check_puzzleDone()
     {
-        /* const check = [];
-        let count = -1;
+        const winnerCombos = [
+            // Horizontal
+            [[0, 0], [0, 1], [0, 2], [0, 3]],
+            [[1, 0], [1, 1], [1, 2], [1, 3]],
+            [[2, 0], [2, 1], [2, 2], [2, 3]],
+            [[3, 0], [3, 1], [3, 2], [3, 3]],
+            // Vertical
+            [[0, 0], [1, 0], [2, 0], [3, 0]],
+            [[0, 1], [1, 1], [2, 1], [3, 1]],
+            [[0, 2], [1, 2], [2, 2], [3, 2]],
+            [[0, 3], [1, 3], [2, 3], [3, 3]],
+            // Center
+            [[1, 1], [1, 2], [2, 1], [2, 2]]
+        ];
 
-        for (let i = 0; i < Settings.array_numbers.length; i ++)
-        {
-            for (let ii = 0; ii < Settings.array_numbers[0].length; ii ++)
-            {
-                if (ii === Settings.array_numbers[0].length - 1 && i === Settings.array_numbers.length - 1) continue;
+        const check = 1;
+        const zoneToCheck = winnerCombos[check];
 
-                count ++;
-                const valor = Settings.array_numbers[i][ii];
-
-                if (valor === count) check.push(true);
-            }
+        if (Settings.array_numbers[zoneToCheck[0][0]][zoneToCheck[0][1]] === 'diamond_0000' &&
+            Settings.array_numbers[zoneToCheck[1][0]][zoneToCheck[1][1]] === 'diamond_0000' &&
+            Settings.array_numbers[zoneToCheck[2][0]][zoneToCheck[2][1]] === 'diamond_0000' &&
+            Settings.array_numbers[zoneToCheck[3][0]][zoneToCheck[3][1]] === 'diamond_0000'
+        ){
+            return true;
         }
 
-        return check; */
+        return false;
     }
 
     get()

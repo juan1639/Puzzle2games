@@ -24,6 +24,12 @@ export class Game extends Scene
   {
     Settings.setGameOver(false);
 
+    Settings.tileXY =
+    {
+      x: 150,
+      y: 150
+    };
+
     Settings.array_numbers =
     [
       [Settings.empty, Settings.empty, Settings.empty],

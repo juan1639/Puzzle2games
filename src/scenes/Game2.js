@@ -22,6 +22,8 @@ export class Game2 extends Scene
 
   init()
   {
+    this.set_sonidos();
+
     Settings.setGameOver(false);
 
     Settings.tileXY =
@@ -62,8 +64,6 @@ export class Game2 extends Scene
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
 
     this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
-
-    this.set_sonidos();
 
     this.boardimg.create();
     this.board.create();
@@ -108,35 +108,56 @@ export class Game2 extends Scene
 
   set_initPause(tiempo)
   {
+    play_sonidos(this.sonido_clickRepeat, false, 0.8);
+
+    this.animaSorteo = this.add.sprite(
+        Math.floor(this.sys.game.config.width / 7),
+        Math.floor(this.sys.game.config.height / 1.5)
+    );
+    this.animaSorteo.setDepth(Settings.depth.efectos);
+
+    this.anims.create({
+        key: 'anima-sorteo',
+        frames: this.anims.generateFrameNumbers('jewels-ssheet', { frames: [0, 1, 2, 4]}),
+        frameRate: 5,
+        repeat: 5
+    });
+
+    this.animaSorteo.play('anima-sorteo', true);
+
+    this.target = Phaser.Math.Between(0, 2);
+    const strJewels = ['diamond_', 'prism_', 'ruby_'];
+
+    this.anims.create({
+        key: 'set-sorteo',
+        frames: this.anims.generateFrameNames('tiles-jewels', { prefix: strJewels[this.target], end: 15, zeroPad: 4 }),
+        frameRate: 20,
+        repeat: -1
+    });
+
     Settings.pausas.inicial = tiempo;
     Settings.pausas.inicialBool = true;
 
-    this.txtpreparado = new Textos(this, {
-      x: Math.floor(this.sys.game.config.width / 2),
-      y: 0,
-      txt: ' Ready! ',
-      size: 100, color: '#ffa', style: 'bold',
-      stroke: '#4f1', sizeStroke: 16,
-      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
-      bool1: false, bool2: true, origin: [0.5, 0.5],
-      elastic: Math.floor(this.sys.game.config.height / 2), dura: 3000
-    });
-    
-    this.txtpreparado.create();
-    this.txtpreparado.get().setDepth(Settings.depth.textos);
-
     this.timeline = this.add.timeline([
-      {
-        at: Settings.pausas.inicial,
-        run: () =>
         {
-          Settings.pausas.inicialBool = false,
-          this.txtpreparado.get().setVisible(false);
-          play_sonidos(Settings.getAudio().music, true, 0.6);
-          this.set_clock();
-          this.set_txtGo();
+            at: Settings.pausas.inicial - 300,
+            run: () =>
+            {
+                play_sonidos(this.sonido_gooo, false, 0.9);
+                this.sonido_clickRepeat.volume = 0;
+                this.animaSorteo.play('set-sorteo', true);
+            }
+        },
+        {
+            at: Settings.pausas.inicial,
+            run: () =>
+            {
+            Settings.pausas.inicialBool = false,
+            play_sonidos(Settings.getAudio().music, true, 0.6);
+            this.set_clock();
+            this.set_txtGo();
+            }
         }
-      }
     ]);
 
     this.timeline.play();
@@ -260,5 +281,7 @@ export class Game2 extends Scene
   {
     this.sonido_jump = this.sound.add('jump');
     this.sonido_monedaMario = this.sound.add('moneda-mario');
+    this.sonido_clickRepeat = this.sound.add('click-repeat');
+    this.sonido_gooo = this.sound.add('gooo');
   }
 }

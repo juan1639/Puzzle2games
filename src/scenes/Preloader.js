@@ -73,7 +73,8 @@ export class Preloader extends Scene
         this.load.image('board', './img/board-puzzle.png');
         this.load.spritesheet('tiles-numbers', './img/ssheet-puzzle-numbers.png', {frameWidth: 150, frameHeight: 150});
         this.load.atlas('tiles-jewels', './img/jewels.png', './img/jewels.json');
-        
+        this.load.spritesheet('jewels-ssheet', './img/jewels-ssheet.png', {frameWidth: 64, frameHeight: 64});
+
         //  Archivos de audio
         this.load.audio('aplausos', './audio/aplausoseagle.mp3');
         this.load.audio('abucheos', './audio/boooh.mp3');
@@ -82,6 +83,9 @@ export class Preloader extends Scene
         this.load.audio('menu-switch', './audio/menu_switch.mp3');
         this.load.audio('music-puzzle-game', './audio/music-puzzle-game1.mp3');
         this.load.audio('moneda-mario', './audio/p-ping.mp3');
+        this.load.audio('get-ready', './audio/get-ready.mp3');
+        this.load.audio('gooo', './audio/gooo.mp3');
+        this.load.audio('click-repeat', './audio/click-repeat.mp3');
     }
 
     create()

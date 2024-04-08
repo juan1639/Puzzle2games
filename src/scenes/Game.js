@@ -22,6 +22,8 @@ export class Game extends Scene
 
   init()
   {
+    this.set_sonidos();
+
     Settings.setGameOver(false);
 
     Settings.tileXY =
@@ -61,8 +63,6 @@ export class Game extends Scene
     // console.log(this.sys.game.config.width, this.sys.game.config.height);
 
     this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
-
-    this.set_sonidos();
 
     this.boardimg.create();
     this.board.create();
@@ -107,6 +107,8 @@ export class Game extends Scene
 
   set_initPause(tiempo)
   {
+    play_sonidos(this.sonido_getReady, false, 0.9);
+
     Settings.pausas.inicial = tiempo;
     Settings.pausas.inicialBool = true;
 
@@ -125,6 +127,13 @@ export class Game extends Scene
     this.txtpreparado.get().setDepth(Settings.depth.textos);
 
     this.timeline = this.add.timeline([
+      {
+        at: Settings.pausas.inicial - 200,
+        run: () =>
+        {
+          play_sonidos(this.sonido_gooo, false, 0.9);
+        }
+      },
       {
         at: Settings.pausas.inicial,
         run: () =>
@@ -259,5 +268,7 @@ export class Game extends Scene
   {
     this.sonido_jump = this.sound.add('jump');
     this.sonido_monedaMario = this.sound.add('moneda-mario');
+    this.sonido_getReady = this.sound.add('get-ready');
+    this.sonido_gooo = this.sound.add('gooo');
   }
 }

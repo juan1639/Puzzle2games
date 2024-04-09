@@ -28,7 +28,7 @@ export class Board
         }
         else
         {
-            this.drawNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
+            this.set_noDraw();
         }
 
         this.puzzle_done = false;
@@ -186,8 +186,21 @@ export class Board
         console.log(Settings.array_numbers);
     }
 
-    set_linesTargetZone(drawTargetZone)
+    set_noDraw()
     {
+        this.drawNumbers = [];
+
+        for (let i = 0; i < Settings.array_numbers.length; i ++)
+        {
+            for (let ii = 0; ii < Settings.array_numbers[0].length; ii ++)
+            {
+                this.drawNumbers.push(Settings.array_numbers[i][ii]);
+            }
+        }
+    }
+
+    set_linesTargetZone(drawTargetZone)
+    {        
         let x = 0;
         let y = 0;
         let ancho = 0;
@@ -215,8 +228,11 @@ export class Board
             alto = Settings.tileXY.y * 2;
         }
 
+        let alpha = 1;
+        if (this.resolve) alpha = 0;
+
         const rect = this.relatedScene.add.rectangle(x, y, ancho, alto);
-        rect.setStrokeStyle(3, 0x11bbc0).setOrigin(0, 0);
+        rect.setStrokeStyle(3, 0x11bbc0, alpha).setOrigin(0, 0);
     }
 
     check_puzzleDone()

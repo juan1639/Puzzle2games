@@ -1,6 +1,6 @@
 import { Settings } from './settings.js';
 import { BoardImg } from '../components/boardImg.js';
-import { Board } from '../components/board.js';
+import { Board } from '../components/board2.js';
 import { Marcador } from '../components/marcador.js';
 import { Textos } from '../components/textos.js';
 import { BotonNuevaPartida, BotonFullScreen } from "../components/boton-nuevapartida.js";

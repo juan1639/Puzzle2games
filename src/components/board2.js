@@ -46,7 +46,7 @@ export class Board
         );
 
         Phaser.Actions.SetOrigin(this.board.getChildren(), 0, 0);
-
+        
         Phaser.Actions.GridAlign(this.board.getChildren(), {
             width: Settings.array_numbers[0].length,
             height: Settings.array_numbers.length,
@@ -55,7 +55,7 @@ export class Board
             x: this.paddingX,
             y: this.paddingY
         });
-
+        
         if (!this.resolve)
         {
             this.board.children.iterate((numero, index) =>

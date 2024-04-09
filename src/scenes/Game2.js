@@ -100,6 +100,11 @@ export class Game2 extends Scene
       
       timeline.play();
     }
+
+    if (Settings.getPuntos() <= 0)
+    {
+        console.log('time up!');
+    }
   }
 
   check_puzzleDone()
@@ -210,12 +215,12 @@ export class Game2 extends Scene
         {
           // console.log('sg');
           const playerTime = Settings.getPuntos();
-          const hiTime = Settings.getRecord();
+          const hiLevel = Settings.getRecord2();
 
           Settings.setPuntos(playerTime - 1);
           this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
 
-          this.marcadorHi.update(' Hi: ', format_time(hiTime));
+          this.marcadorHi.update(' Hi: Level ', hiLevel);
         }
       }
     ]);
@@ -281,7 +286,7 @@ export class Game2 extends Scene
     this.txthowtoplay = new Textos(this, {
       x: Math.floor(this.sys.game.config.width / 2),
       y: Math.floor(this.sys.game.config.height / 2),
-      txt: ' Try to order the numbers \n from least to greatest. \n   1   2   3 \n   4   5   6 \n   7   8',
+      txt: ' Try to place the gems \n in the selected area \n before time runs out.',
       size: 40, color: '#ffa', style: 'bold',
       stroke: '#18a', sizeStroke: 16,
       shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',

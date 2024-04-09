@@ -17,6 +17,7 @@ export class Settings
     static puntos = 0;
     static nivel = 1;
     static hi = 151;
+    static hi2 = 5;
     static txtScore = ' Score: ';
     static txtTime = ' Time: ';
 
@@ -95,6 +96,11 @@ export class Settings
         return Settings.hi;
     }
 
+    static getRecord2()
+    {
+        return Settings.hi2;
+    }
+
     static getTimeLimits()
     {
         return Settings.timeLimits;
@@ -129,6 +135,11 @@ export class Settings
     static setRecord(hiScore)
     {
         Settings.hi = hiScore;
+    }
+
+    static setRecord2(hiLevel)
+    {
+        Settings.hi2 = hiLevel;
     }
 
     static setAnimationsVel(vel)

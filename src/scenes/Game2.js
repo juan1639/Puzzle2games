@@ -103,7 +103,7 @@ export class Game2 extends Scene
 
     if (Settings.getPuntos() <= 0)
     {
-        console.log('time up!');
+      console.log('time up!');
     }
   }
 
@@ -121,6 +121,14 @@ export class Game2 extends Scene
         Math.floor(this.sys.game.config.height / 1.5)
     );
     this.animaSorteo.setDepth(Settings.depth.efectos);
+
+    this.bgAnimaSorteo = this.add.rectangle(
+      Math.floor(this.sys.game.config.width / 7),
+      Math.floor(this.sys.game.config.height / 1.5),
+      Settings.tileXY.x, Settings.tileXY.y,
+      0x655511
+    );
+    this.bgAnimaSorteo.setStrokeStyle(2, 0x857500).setDepth(Settings.depth.fondo + 20);
 
     if (Settings.getNivel() === 1)
     {
@@ -165,26 +173,26 @@ export class Game2 extends Scene
     this.txtLevel.get().setDepth(Settings.depth.textos);
 
     this.timeline = this.add.timeline([
+      {
+        at: Settings.pausas.inicial - 300,
+        run: () =>
         {
-            at: Settings.pausas.inicial - 300,
-            run: () =>
-            {
-                play_sonidos(this.sonido_gooo, false, 0.9);
-                this.sonido_clickRepeat.volume = 0;
-                this.animaSorteo.play('set-sorteo', true);
-            }
-        },
-        {
-            at: Settings.pausas.inicial,
-            run: () =>
-            {
-                Settings.pausas.inicialBool = false;
-                this.txtLevel.get().setVisible(false);
-                play_sonidos(Settings.getAudio().music, true, 0.6);
-                this.set_clock();
-                this.set_txtGo();
-            }
+          play_sonidos(this.sonido_gooo, false, 0.9);
+          this.sonido_clickRepeat.volume = 0;
+          this.animaSorteo.play('set-sorteo', true);
         }
+      },
+      {
+        at: Settings.pausas.inicial,
+        run: () =>
+        {
+          Settings.pausas.inicialBool = false;
+          this.txtLevel.get().setVisible(false);
+          play_sonidos(Settings.getAudio().music, true, 0.6);
+          this.set_clock();
+          this.set_txtGo();
+        }
+      }
     ]);
 
     this.timeline.play();

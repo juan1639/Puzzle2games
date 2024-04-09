@@ -70,6 +70,9 @@ export class Board
             });
         }
 
+        this.drawTargetZone = Phaser.Math.Between(0, 8); // 8 Posible Target Zones
+        this.set_linesTargetZone(this.drawTargetZone);
+
         this.sound_jump = this.relatedScene.sonido_jump;
 
         console.log(this.board);
@@ -183,6 +186,39 @@ export class Board
         console.log(Settings.array_numbers);
     }
 
+    set_linesTargetZone(drawTargetZone)
+    {
+        let x = 0;
+        let y = 0;
+        let ancho = 0;
+        let alto = 0;
+
+        if (drawTargetZone < 4)
+        {
+            x = this.paddingX;
+            y = this.paddingY + drawTargetZone * Settings.tileXY.y;
+            ancho = Settings.tileXY.x * Settings.array_numbers[0].length;
+            alto = Settings.tileXY.y;
+        }
+        else if (drawTargetZone < 8)
+        {
+            x = this.paddingX + (drawTargetZone - 4) * Settings.tileXY.x;
+            y = this.paddingY;
+            ancho = Settings.tileXY.x;
+            alto = Settings.tileXY.y * Settings.array_numbers.length;
+        }
+        else
+        {
+            x = this.paddingX + Settings.tileXY.x;
+            y = this.paddingY + Settings.tileXY.y;
+            ancho = Settings.tileXY.x * 2;
+            alto = Settings.tileXY.y * 2;
+        }
+
+        const rect = this.relatedScene.add.rectangle(x, y, ancho, alto);
+        rect.setStrokeStyle(3, 0x11bbc0).setOrigin(0, 0);
+    }
+
     check_puzzleDone()
     {
         const winnerCombos = [
@@ -201,7 +237,7 @@ export class Board
         ];
 
         const jewelTarget = this.relatedScene.strJewels[this.relatedScene.target] + '0000';
-        const check = 1;
+        const check = this.drawTargetZone;
         const zoneToCheck = winnerCombos[check];
 
         if (Settings.array_numbers[zoneToCheck[0][0]][zoneToCheck[0][1]] === jewelTarget &&

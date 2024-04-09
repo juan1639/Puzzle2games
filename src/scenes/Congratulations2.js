@@ -88,8 +88,8 @@ export class Congratulations2 extends Phaser.Scene
         at: aparecerBoton,
         run: () =>
         {
-            Settings.setNivel(Settings.getNivel() + 1);
-            this.botoninicio.create();
+          Settings.setNivel(Settings.getNivel() + 1);
+          this.botoninicio.create();
         }
       }
     ]);

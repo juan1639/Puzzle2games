@@ -10,7 +10,7 @@ import { BoardImg } from '../components/boardImg.js';
 import { Textos } from '../components/textos.js';
 import { Marcador } from './../components/marcador.js';
 import { Settings } from './settings.js';
-import { play_sonidos, format_time } from '../functions/functions.js';
+import { set_txtHowToPlay, play_sonidos, format_time } from '../functions/functions.js';
 import { BotonFullScreen, BotonEsc } from '../components/boton-nuevapartida.js';
 
 export class Game2 extends Scene
@@ -47,7 +47,7 @@ export class Game2 extends Scene
     this.board = new Board(this, false);
 
     this.instanciar_marcadores();
-    this.set_txtHowToPlay();
+    set_txtHowToPlay(this, ' Try to place the gems \n in the selected area \n before time runs out.');
   }
 
   preload() {}
@@ -122,23 +122,29 @@ export class Game2 extends Scene
     );
     this.animaSorteo.setDepth(Settings.depth.efectos);
 
-    this.anims.create({
+    if (Settings.getNivel() === 1)
+    {
+      this.anims.create({
         key: 'anima-sorteo',
-        frames: this.anims.generateFrameNumbers('jewels-ssheet', { frames: [0, 1, 2, 4]}),
+        frames: this.anims.generateFrameNumbers('jewels-ssheet', { frames: [0, 1, 2, 3]}),
         frameRate: 5,
         repeat: 5
-    });
+      });
+    }
 
     this.animaSorteo.play('anima-sorteo', true);
 
     this.target = Phaser.Math.Between(0, 2);
-    const strJewels = ['diamond_', 'prism_', 'ruby_'];
+    this.strJewels = ['diamond_', 'prism_', 'ruby_', 15, 6, 6];
 
+    if (Settings.getNivel() > 1) this.anims.remove('set-sorteo');
+    
     this.anims.create({
-        key: 'set-sorteo',
-        frames: this.anims.generateFrameNames('tiles-jewels', { prefix: strJewels[this.target], end: 15, zeroPad: 4 }),
-        frameRate: 20,
-        repeat: -1
+      key: 'set-sorteo',
+      frames: this.anims.generateFrameNames('tiles-jewels', {
+        prefix: this.strJewels[this.target], end: this.strJewels[this.target + 3], zeroPad: 4 }),
+      frameRate: 20,
+      repeat: -1
     });
 
     Settings.pausas.inicial = tiempo;
@@ -269,33 +275,6 @@ export class Game2 extends Scene
       left: Math.floor(ancho / 1.1), top: Math.floor(alto / 2.6), id: 'ui-1',
       scX: 0.5, scY: 0.5, angle: 0, originX: 0.5, originY: 0.5, texto: ' ? ', nextScene: ''
     });
-  }
-
-  set_txtHowToPlay()
-  {
-    this.bg = this.add.rectangle(
-      Math.floor(this.sys.game.config.width / 2),
-      Math.floor(this.sys.game.config.height / 2),
-      Math.floor(this.sys.game.config.width / 1.4),
-      Math.floor(this.sys.game.config.height / 1.4),
-      0x777777
-    );
-
-    this.bg.setDepth(Settings.depth.howtoplay).setStrokeStyle(2, 0xaaaaaa).setVisible(false);
-
-    this.txthowtoplay = new Textos(this, {
-      x: Math.floor(this.sys.game.config.width / 2),
-      y: Math.floor(this.sys.game.config.height / 2),
-      txt: ' Try to place the gems \n in the selected area \n before time runs out.',
-      size: 40, color: '#ffa', style: 'bold',
-      stroke: '#18a', sizeStroke: 16,
-      shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
-      bool1: false, bool2: true, origin: [0.5, 0.5],
-      elastic: false, dura: 0
-    });
-    
-    this.txthowtoplay.create();
-    this.txthowtoplay.get().setDepth(Settings.depth.howtoplay).setVisible(false);
   }
 
   set_sonidos()

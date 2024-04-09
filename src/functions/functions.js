@@ -26,6 +26,33 @@ function showBonus(scene, enemigo)
   });
 }
 
+function set_txtHowToPlay(scene, texto)
+{
+  scene.bg = scene.add.rectangle(
+    Math.floor(scene.sys.game.config.width / 2),
+    Math.floor(scene.sys.game.config.height / 2),
+    Math.floor(scene.sys.game.config.width / 1.4),
+    Math.floor(scene.sys.game.config.height / 1.4),
+    0x777777
+  );
+
+  scene.bg.setDepth(Settings.depth.howtoplay).setStrokeStyle(2, 0xaaaaaa).setVisible(false);
+
+  scene.txthowtoplay = new Textos(scene, {
+    x: Math.floor(scene.sys.game.config.width / 2),
+    y: Math.floor(scene.sys.game.config.height / 2),
+    txt: texto,
+    size: 40, color: '#ffa', style: 'bold',
+    stroke: '#18a', sizeStroke: 16,
+    shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+    bool1: false, bool2: true, origin: [0.5, 0.5],
+    elastic: false, dura: 0
+  });
+  
+  scene.txthowtoplay.create();
+  scene.txthowtoplay.get().setDepth(Settings.depth.howtoplay).setVisible(false);
+}
+
 function particulas(x, y, particula, vel, span, size, color, unlimited, sprite, bool, scene)
 {
     const partis = scene.add.particles(x, y, particula, {
@@ -92,6 +119,7 @@ function play_sonidos(id, loop, volumen)
 }
 
 export {
+  set_txtHowToPlay,
   particulas,
   format_time,
   play_sonidos

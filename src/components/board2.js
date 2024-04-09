@@ -200,13 +200,14 @@ export class Board
             [[1, 1], [1, 2], [2, 1], [2, 2]]
         ];
 
+        const jewelTarget = this.relatedScene.strJewels[this.relatedScene.target] + '0000';
         const check = 1;
         const zoneToCheck = winnerCombos[check];
 
-        if (Settings.array_numbers[zoneToCheck[0][0]][zoneToCheck[0][1]] === 'diamond_0000' &&
-            Settings.array_numbers[zoneToCheck[1][0]][zoneToCheck[1][1]] === 'diamond_0000' &&
-            Settings.array_numbers[zoneToCheck[2][0]][zoneToCheck[2][1]] === 'diamond_0000' &&
-            Settings.array_numbers[zoneToCheck[3][0]][zoneToCheck[3][1]] === 'diamond_0000'
+        if (Settings.array_numbers[zoneToCheck[0][0]][zoneToCheck[0][1]] === jewelTarget &&
+            Settings.array_numbers[zoneToCheck[1][0]][zoneToCheck[1][1]] === jewelTarget &&
+            Settings.array_numbers[zoneToCheck[2][0]][zoneToCheck[2][1]] === jewelTarget &&
+            Settings.array_numbers[zoneToCheck[3][0]][zoneToCheck[3][1]] === jewelTarget
         ){
             return true;
         }

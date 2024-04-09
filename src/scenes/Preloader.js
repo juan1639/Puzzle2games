@@ -60,8 +60,8 @@ export class Preloader extends Scene
 
         this.load.image('ui-1', './img/ui-1.png');
 
-        this.load.image('img-menu-numbers', './img/img-puzzle-numbers.png');
-        this.load.image('img-menu-jewels', './img/img-puzzle-numbers.png');
+        this.load.image('img-menu-numbers', './img/miniatura-puzzle2games.png');
+        this.load.image('img-menu-jewels', './img/img-puzzle-jewels.png');
 
         this.load.image('boton-nueva-partida', './img/ui-newgame.png');
         this.load.spritesheet('boton-fullscreen', './img/boton-fullscreen.png', {frameWidth: 64, frameHeight: 64});

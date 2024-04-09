@@ -27,6 +27,14 @@ export class Congratulations2 extends Phaser.Scene
       scX: 0.7, scY: 0.7, angle: 1, originX: 0.5, originY: 0.5,
       texto: ' Continue ', nextScene: 'Game2'
     });
+
+    this.botoniniciogameover = new BotonNuevaPartida(this, {
+      left: Math.floor(this.sys.game.config.width / 2),
+      top: Math.floor(this.sys.game.config.height / 1.3),
+      id: 'boton-nueva-partida',
+      scX: 0.7, scY: 0.7, angle: 1, originX: 0.5, originY: 0.5,
+      texto: ' Continue ', nextScene: 'PreGame'
+    });
   }
 
   create()
@@ -35,16 +43,25 @@ export class Congratulations2 extends Phaser.Scene
 
     this.add.image(0, 0, 'fondo').setOrigin(0, 0);
 
-    particulas(
-      this.sys.game.config.width / 2,
-      this.sys.game.config.height / 2,
-      'particula1',
-      {min: 90, max: 320},
-      {min: 5500, max: 6000},
-      {start: 0, end: 1},
-      0xffcc11,
-      true, null, false, this
-    );
+    let texto = ' Time Up! ';
+    let strk = '#f11';
+
+    if (!Settings.isGameOver())
+    {
+      particulas(
+        this.sys.game.config.width / 2,
+        this.sys.game.config.height / 2,
+        'particula1',
+        {min: 90, max: 320},
+        {min: 5500, max: 6000},
+        {start: 0, end: 1},
+        0xffcc11,
+        true, null, false, this
+      );
+
+      texto = ' Level Up! ';
+      strk = '#f71';
+    }
 
     this.ui.forEach(uix => uix.setVisible(true).setDepth(Settings.depth.ui));
 
@@ -60,9 +77,9 @@ export class Congratulations2 extends Phaser.Scene
     this.txt = new Textos(this, {
       x: Math.floor(this.sys.game.config.width / 2),
       y: Math.floor(this.sys.game.config.height / 2.3),
-      txt: ' Level Up! ',
-      size: 100, color: '#ffa', style: 'bold',
-      stroke: '#f71', sizeStroke: 16,
+      txt: texto,
+      size: 120, color: '#ffa', style: 'bold',
+      stroke: strk, sizeStroke: 16,
       shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
       bool1: false, bool2: true, origin: [0.5, 0.5],
       elastic: false, dura: 0
@@ -81,15 +98,29 @@ export class Congratulations2 extends Phaser.Scene
         at: Math.floor(aparecerBoton / 2),
         run: () =>
         {
-          play_sonidos(Settings.getAudio().fireWorks, false, 0.9);
+          if (Settings.isGameOver())
+          {
+            play_sonidos(this.sonido_gameoverVoz, false, 0.9);
+          }
+          else
+          {
+            play_sonidos(Settings.getAudio().fireWorks, false, 0.9);
+          }
         }
       },
       {
         at: aparecerBoton,
         run: () =>
         {
-          Settings.setNivel(Settings.getNivel() + 1);
-          this.botoninicio.create();
+          if (!Settings.isGameOver())
+          {
+            Settings.setNivel(Settings.getNivel() + 1);
+            this.botoninicio.create();
+          }
+          else
+          {
+            this.botoniniciogameover.create();
+          }
         }
       }
     ]);
@@ -97,17 +128,30 @@ export class Congratulations2 extends Phaser.Scene
     timeline.play();
 
     const playerTime = Settings.getPuntos();
-    const hiTime = Settings.getRecord();
+    const hiLevel = Settings.getRecord2();
 
     this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
-    this.marcadorHi.update(' Hi: ', format_time(hiTime));
+    this.marcadorHi.update(' Hi: Level ', hiLevel);
 
-    play_sonidos(this.sonido_aplausos, false, 0.9);
+    if (Settings.isGameOver())
+    {
+      play_sonidos(this.sonido_gameoverRetro, false, 0.7);
+    }
+    else
+    {
+      play_sonidos(this.sonido_aplausos, false, 0.9);
+    }
 
     console.log(this.txt);
   }
 
-  update() {}
+  update()
+  {
+    if (Settings.isGameOver())
+    {
+      this.marcadorPtos.update(Settings.getTxtTime(), '00:00');
+    }
+  }
 
   instanciar_marcadores()
   {
@@ -140,5 +184,7 @@ export class Congratulations2 extends Phaser.Scene
   set_sonidos()
   {
     this.sonido_aplausos = this.sound.add('aplausos');
+    this.sonido_gameoverRetro = this.sound.add('gameover-retro');
+    this.sonido_gameoverVoz = this.sound.add('gameover-voz');
   }
 }

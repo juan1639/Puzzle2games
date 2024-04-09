@@ -101,9 +101,11 @@ export class Game2 extends Scene
       timeline.play();
     }
 
-    if (Settings.getPuntos() <= 0)
+    if (Settings.getPuntos() < 0)
     {
       console.log('time up!');
+      Settings.setGameOver(true);
+      this.scene.start('Congratulations2');
     }
   }
 
@@ -255,14 +257,16 @@ export class Game2 extends Scene
       0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
 
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
+    const initialTime = Settings.getPuntos();
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
+      x: 30, y: marcadoresPosY, size: 40, txt: `${Settings.getTxtTime()}${format_time(initialTime)}`,
       color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: false
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Hi: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ` Hi: Level ${Settings.getRecord2()}`,
+      color: '#eee', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

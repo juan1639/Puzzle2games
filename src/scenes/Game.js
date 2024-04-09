@@ -210,12 +210,13 @@ export class Game extends Scene
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
+      x: 30, y: marcadoresPosY, size: 40, txt: `${Settings.getTxtTime()}00:00`,
       color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: false
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Hi: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ` Hi: ${format_time(Settings.getRecord())}`,
+      color: '#eee', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

@@ -86,6 +86,8 @@ export class Preloader extends Scene
         this.load.audio('get-ready', './audio/get-ready.mp3');
         this.load.audio('gooo', './audio/gooo.mp3');
         this.load.audio('click-repeat', './audio/click-repeat.mp3');
+        this.load.audio('gameover-retro', './audio/gameoveretro.ogg');
+        this.load.audio('gameover-voz', './audio/gameover.mp3');
     }
 
     create()

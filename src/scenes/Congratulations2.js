@@ -70,6 +70,7 @@ export class Congratulations2 extends Phaser.Scene
     
     this.marcadorPtos.create();
     this.marcadorHi.create();
+    this.marcadorLevel.create();
     this.botonfullscreen.create();
 
     const aparecerBoton = 6000;
@@ -133,9 +134,11 @@ export class Congratulations2 extends Phaser.Scene
     this.marcadorPtos.update(Settings.getTxtTime(), format_time(playerTime));
     this.marcadorHi.update(' Hi: Level ', hiLevel);
 
+    
     if (Settings.isGameOver())
     {
       play_sonidos(this.sonido_gameoverRetro, false, 0.7);
+      this.check_newRecord(hiLevel);
     }
     else
     {
@@ -153,27 +156,78 @@ export class Congratulations2 extends Phaser.Scene
     }
   }
 
+  check_newRecord(hiLevel)
+  {
+    if (Settings.getNivel() >= hiLevel)
+    {
+      console.log('new record!');
+      Settings.setRecord2(Settings.getNivel());
+
+      const timeline = this.add.timeline([
+        {
+          at: 4500,
+          run: () =>
+          {
+            this.txt = new Textos(this, {
+              x: Math.floor(this.sys.game.config.width / 2),
+              y: Math.floor(this.sys.game.config.height / 4),
+              txt: ' You set a New Record! ',
+              size: 70, color: '#ffa', style: 'bold',
+              stroke: '#f11', sizeStroke: 16,
+              shadowOsx: 2, shadowOsy: 2, shadowColor: '#111111',
+              bool1: false, bool2: true, origin: [0.5, 0.5],
+              elastic: false, dura: 0
+            });
+        
+            this.txt.create();
+            this.txt.get().setDepth(Settings.depth.textos).setAlpha(1).setScale(1);
+
+            this.tweens.add(
+            {
+              targets: this.txt.get(),
+              angle: 359,
+              ease: 'Elastic',
+              yoyo: true,
+              hold: 2000,
+              duration: 3000,
+              repeat: -1
+            });
+          }
+        }
+      ]);
+
+      timeline.play();
+    }
+  }
+
   instanciar_marcadores()
   {
     const ancho = this.sys.game.config.width;
     const alto = this.sys.game.config.height;
 
-    this.ui = [null, null];
+    this.ui = [null, null, null];
 
     this.ui[0] = this.add.image(0, 0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
 
-    this.ui[1] = this.add.image(Math.floor(this.sys.game.config.width / 2.4),
-      0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+    this.ui[1] = this.add.image(Math.floor(this.sys.game.config.width / 2.4), 0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+    
+    this.ui[2] = this.add.image(0, Math.floor(alto / 5), 'ui-1').setScale(1.2, 1).setOrigin(0, 0.5).setVisible(false);
 
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
+    const left = 30;
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
-      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: true
+      x: left, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
+      color: '#ee4', strokeColor: '#f0bb10', id: 0, resuelto: true
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Hi: Level ', color: '#ee9', strokeColor: '#f0bb10',id: 2
+    });
+
+    this.marcadorLevel = new Marcador(this, {
+      x: left, y: Math.floor(alto / 5), size: 40, txt: ` Level: ${Settings.getNivel()}`,
+      color: '#ee4', strokeColor: '#f0bb10',id: 1
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

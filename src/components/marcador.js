@@ -15,6 +15,7 @@ export class Marcador
         let texto = '';
 
         if (id === 0) texto = `${txt}`;
+        if (id === 1) texto = `${txt}`;
         if (id === 2) texto = `${txt}`;
 
         this.marcador = this.relatedScene.add.text(x, y, texto, {

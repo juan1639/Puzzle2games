@@ -71,6 +71,7 @@ export class Game2 extends Scene
     
     this.marcadorPtos.create();
     this.marcadorHi.create();
+    this.marcadorLevel.create();
     this.botonfullscreen.create();
     this.botonesc.create();
     this.botonmusic.create();
@@ -249,24 +250,32 @@ export class Game2 extends Scene
     const ancho = this.sys.game.config.width;
     const alto = this.sys.game.config.height;
 
-    this.ui = [null, null];
+    this.ui = [null, null, null];
 
     this.ui[0] = this.add.image(0, 0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
-
+    
     this.ui[1] = this.add.image(Math.floor(this.sys.game.config.width / 2.4),
-      0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+    0, 'ui-1').setScale(1.4, 1).setOrigin(0, 0).setVisible(false);
+    
+    this.ui[2] = this.add.image(0, Math.floor(alto / 5), 'ui-1').setScale(1.2, 1).setOrigin(0, 0.5).setVisible(false);
 
     const marcadoresPosY = Math.floor(this.ui[0].height / 2);
     const initialTime = Settings.getPuntos();
+    const left = 30;
 
     this.marcadorPtos = new Marcador(this, {
-      x: 30, y: marcadoresPosY, size: 40, txt: `${Settings.getTxtTime()}${format_time(initialTime)}`,
-      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: false
+      x: left, y: marcadoresPosY, size: 40, txt: `${Settings.getTxtTime()}${format_time(initialTime)}`,
+      color: '#ee4', strokeColor: '#f0bb10', id: 0, resuelto: false
     });
 
     this.marcadorHi = new Marcador(this, {
       x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ` Hi: Level ${Settings.getRecord2()}`,
-      color: '#eee', strokeColor: '#f0bb10',id: 2
+      color: '#ee9', strokeColor: '#f0bb10',id: 2
+    });
+
+    this.marcadorLevel = new Marcador(this, {
+      x: left, y: Math.floor(alto / 5), size: 40, txt: ` Level: ${Settings.getNivel()}`,
+      color: '#ee4', strokeColor: '#f0bb10',id: 1
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

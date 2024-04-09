@@ -211,12 +211,12 @@ export class Game extends Scene
 
     this.marcadorPtos = new Marcador(this, {
       x: 30, y: marcadoresPosY, size: 40, txt: `${Settings.getTxtTime()}00:00`,
-      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: false
+      color: '#ee4', strokeColor: '#f0bb10', id: 0, resuelto: false
     });
 
     this.marcadorHi = new Marcador(this, {
       x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ` Hi: ${format_time(Settings.getRecord())}`,
-      color: '#eee', strokeColor: '#f0bb10',id: 2
+      color: '#ee9', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {

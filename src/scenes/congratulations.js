@@ -170,11 +170,11 @@ export class Congratulations extends Phaser.Scene
 
     this.marcadorPtos = new Marcador(this, {
       x: 30, y: marcadoresPosY, size: 40, txt: Settings.getTxtTime(),
-      color: '#eee', strokeColor: '#f0bb10', id: 0, resuelto: true
+      color: '#ee4', strokeColor: '#f0bb10', id: 0, resuelto: true
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#eee', strokeColor: '#f0bb10',id: 2
+      x: Math.floor(ancho / 2.2), y: marcadoresPosY, size: 40, txt: ' Record: ', color: '#ee9', strokeColor: '#f0bb10',id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {
